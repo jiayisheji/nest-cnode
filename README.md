@@ -51,35 +51,60 @@ For that, if you just create a file named .env in the directory and set the valu
 .env file
 
 ````bash
-# Auth0
-GITHUB_CLIENT_ID=myCoolSecret
-GITHUB_CLIENT_SECRET=myCoolClientId
-GITHUB_CALLBACK_URL=myCallbackUrl
+#
+# config
+#
+HOST='localhost'
+PORT=3000
+STATIC_HOST=''
+MINI_ASSETS=false
 
+#
+# system
+#
+SUPER_ADMIN='super_admin'
+SESSION_SECRET='cnode'
+AUTH_COOKIE_NAME='nest_cnode'
+GITHUB_CLIENT_ID=myCoolClientId
+GITHUB_CLIENT_SECRET=myCoolSecret
+
+#
+# access qn
+#
+QN_ACCESS_KEY='your access key'
+QN_SECRET_KEY='your secret key'
+QN_BUCKET='your bucket name'
+# 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
+# 如果在国内，此项请留空
+QN_UPLOAD_URL=''
+
+#
+# mail
+#
+MAIL_HOST='smtp.126.com'
+MAIL_PORT=25
+MAIL_USER='club@126.com'
+MAIL_PASS='club'
+
+#
+# database redis
+#
 # Redis Replica Set
 REDIS_HOST='127.0.0.1'
 REDIS_PORT=6379
-REDIS_PASSWORD='123456'
+REDIS_PASSWORD=''
 REDIS_DB=0
 
+#
+# database mongoDB
+#
 # MongoDB Replica Set
-MONGODB_URL='mongodb://cnode_admin:123456@127.0.0.1:27017/db_cnode'
 MONGO_HOST="localhost"
 MONGO_PORT=27017
 MONGO_USER="cnode_admin"
 MONGO_PASS="123456"
-MONGO_DBS="cnode"
-
-# Config
-SUPER_ADMIN='super_admin'
-SESSION_SECRET='cnode'
-AUTH_COOKIE_NAME='nest_cnode'
-
-# access qn
-
-
+MONGO_DBS="db_cnode"
 ````
-
 
 ## Running the app
 
@@ -87,11 +112,11 @@ AUTH_COOKIE_NAME='nest_cnode'
 # development
 $ npm run start
 
-# watch mode
+# watch development mode
 $ npm run start:dev
 
 # production mode
-npm run start:prod
+ npm run prestart:prod && npm run start:prod
 ```
 
 ## Test
