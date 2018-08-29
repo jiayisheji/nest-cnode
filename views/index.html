@@ -1,7 +1,1636 @@
 <% layout('layout') -%>
-<h1>我是首页</h1>
-<img src="/public/images/logo.png" alt="logo">
-<% block('head').append('<link type="text/css" href="/append.css">') %>
-<% block('head').prepend('<link type="text/css" href="/prepend.css">') %>
-<% block('head').prepend('<link type="text/css" href="/prepend2.css">') %>
-<% block('head').append('<link type="text/css" href="/append2.css">') %>
+<%- partial('./sidebar.html') %>
+        
+<article id="content">
+<div class="panel">
+    <div class="header">
+
+        <a href="/?tab=all" class="topic-tab current-tab">全部</a>
+
+        <a href="/?tab=good" class="topic-tab ">精华</a>
+
+        <a href="/?tab=share" class="topic-tab ">分享</a>
+
+        <a href="/?tab=ask" class="topic-tab ">问答</a>
+
+        <a href="/?tab=job" class="topic-tab ">招聘</a>
+
+        <a href="/?tab=dev" class="topic-tab ">客户端测试</a>
+
+    </div>
+
+    <div class="inner no-padding">
+        <div id="topic_list">
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/nswbmw">
+<img src="https://avatars0.githubusercontent.com/u/4279697?v=4&amp;s=120"
+title="nswbmw"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+107
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+24316
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5a9661ff71327bb413bbff5b#5b83fb6e632c7f422e5b8190">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/4631656?v=4&amp;s=120">
+<span class="last_active_time">18 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class='put_top'>置顶</span>
+
+
+
+                    <a class='topic_title' href='/topic/5a9661ff71327bb413bbff5b' title='《Node.js 调试指南》已出版'>
+《Node.js 调试指南》已出版
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/XadillaX">
+<img src="https://avatars3.githubusercontent.com/u/2842176?v=4&amp;s=120"
+title="XadillaX"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+101
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+17957
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b223c1d5cd02be640901490#5b83bb10fad9359e2e831241">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/26075061?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class='put_top'>置顶</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b223c1d5cd02be640901490' title='《Node.js：来一打 C++ 扩展》已出版，求支持'>
+《Node.js：来一打 C++ 扩展》已出版，求支持
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/wuminqi">
+<img src="https://avatars1.githubusercontent.com/u/628250?v=4&amp;s=120"
+title="wuminqi"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+37
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+4715
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b5f231f58db3ccf66a45083#5b83ab6a944cb8340c27e3cb">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/3118295?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class='put_top'>置顶</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b5f231f58db3ccf66a45083' title='【视频分享】Node 地下铁第六期「成都站」- 企业级的 Node.js 实践'>
+【视频分享】Node 地下铁第六期「成都站」- 企业级的 Node.js 实践
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/bian17888">
+<img src="https://avatars3.githubusercontent.com/u/3838445?v=4&amp;s=120"
+title="bian17888"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+7
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+2721
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b6913d858db3ccf66a452c9#5b7cb30d632c7f422e5b805a">
+<img class="user_small_avatar" src="https://avatars1.githubusercontent.com/u/22890553?v=4&amp;s=120">
+<span class="last_active_time">6 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class='put_top'>置顶</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b6913d858db3ccf66a452c9' title='阿里云 MVP第6期招募与社区合作启动'>
+阿里云 MVP第6期招募与社区合作启动
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/liuzhiguo11">
+<img src="https://avatars3.githubusercontent.com/u/17982632?v=4&amp;s=120"
+title="liuzhiguo11"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+1
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+11
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b84f2fc632c7f422e5b81d0#5b84f349632c7f422e5b81d1">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/17982632?v=4&amp;s=120">
+<span class="last_active_time">9 分钟前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b84f2fc632c7f422e5b81d0' title='微信端无法正常提交post表单和跳转是什么原因？'>
+微信端无法正常提交post表单和跳转是什么原因？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/KAROTT7">
+<img src="https://avatars2.githubusercontent.com/u/21054747?v=4&amp;s=120"
+title="KAROTT7"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+1
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+71
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b84df7b08d0b0fb2d8e6c6f#5b84f265fad9359e2e831272">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/15187909?v=4&amp;s=120">
+<span class="last_active_time">13 分钟前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b84df7b08d0b0fb2d8e6c6f' title='有用 websocket 做过聊天室的朋友么？'>
+有用 websocket 做过聊天室的朋友么？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/EasonWang01">
+<img src="https://avatars3.githubusercontent.com/u/11001914?v=4&amp;s=120"
+title="EasonWang01"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+6
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+1098
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b650df07271129a2f32a773#5b84e9e908d0b0fb2d8e6c73">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/10555820?v=4&amp;s=120">
+<span class="last_active_time">1 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class='put_good'>精华</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b650df07271129a2f32a773' title='个人的一些 Node.js Crypto 与 OpenSSL 密码学笔记分享'>
+个人的一些 Node.js Crypto 与 OpenSSL 密码学笔记分享
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/shenzekun">
+<img src="https://avatars1.githubusercontent.com/u/21151080?v=4&amp;s=120"
+title="shenzekun"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+28
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+3638
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b1e20e929e6e510415b29d0#5b84e2ecfad9359e2e831270">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/42377975?v=4&amp;s=120">
+<span class="last_active_time">1 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b1e20e929e6e510415b29d0' title='分享一些有用的工具网站'>
+分享一些有用的工具网站
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/suxiaoxin">
+<img src="https://avatars0.githubusercontent.com/u/17695103?v=4&amp;s=120"
+title="suxiaoxin"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+4
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+217
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b83d88b632c7f422e5b818d#5b84df75632c7f422e5b81c4">
+<img class="user_small_avatar" src="https://avatars1.githubusercontent.com/u/29632643?v=4&amp;s=120">
+<span class="last_active_time">2 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b83d88b632c7f422e5b818d' title='降低代码复杂度神器之code-metrics-loader'>
+降低代码复杂度神器之code-metrics-loader
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/elvinn">
+<img src="https://avatars0.githubusercontent.com/u/28722527?v=4&amp;s=120"
+title="elvinn"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+7
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+564
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b8041eec52ad1482eb941ce#5b84dd3d632c7f422e5b81c1">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/6811418?v=4&amp;s=120">
+<span class="last_active_time">2 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b8041eec52ad1482eb941ce' title='每天阅读一个 npm 模块（1）- username'>
+每天阅读一个 npm 模块（1）- username
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/quanpf2481">
+<img src="https://avatars3.githubusercontent.com/u/30330930?v=4&amp;s=120"
+title="quanpf2481"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+4
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+117
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b84a73308d0b0fb2d8e6c61#5b84d478fad9359e2e83126e">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/1763067?v=4&amp;s=120">
+<span class="last_active_time">2 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b84a73308d0b0fb2d8e6c61' title='用node js数据请求'>
+用node js数据请求
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/elvinn">
+<img src="https://avatars0.githubusercontent.com/u/28722527?v=4&amp;s=120"
+title="elvinn"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+0
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+55
+</span>
+                </span>
+
+
+
+                <span class='last_time pull-right'>
+<span class="last_active_time">2 小时前</span>
+                </span>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b84d3752a585e4e2f26ff5b' title='每天阅读一个 npm 模块（3）- mimic-fn'>
+每天阅读一个 npm 模块（3）- mimic-fn
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/wiscgazf">
+<img src="https://avatars0.githubusercontent.com/u/26874662?v=4&amp;s=120"
+title="wiscgazf"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+3
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+192
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b82b805c52ad1482eb941fa#5b84cc27632c7f422e5b81bb">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/8413791?v=4&amp;s=120">
+<span class="last_active_time">3 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b82b805c52ad1482eb941fa' title='网页音乐播放器，（同域名）当前页面进行音乐播放，跳转另外一个链接（当前页面打开），怎样让音乐不停止并继续播放？'>
+网页音乐播放器，（同域名）当前页面进行音乐播放，跳转另外一个链接（当前页面打开），怎样让音乐不停止并继续播放？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/yakczh">
+<img src="https://avatars3.githubusercontent.com/u/6591466?v=4&amp;s=120"
+title="yakczh"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+16
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+1207
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7545ca792f59ae501bfa4b#5b84c1befad9359e2e831269">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/21350927?v=4&amp;s=120">
+<span class="last_active_time">4 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7545ca792f59ae501bfa4b' title='chrome49是巨人，那chrome68算什么'>
+chrome49是巨人，那chrome68算什么
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/elvinn">
+<img src="https://avatars0.githubusercontent.com/u/28722527?v=4&amp;s=120"
+title="elvinn"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+7
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+446
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b82dd11632c7f422e5b815a#5b84ba9ffad9359e2e831265">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/28722527?v=4&amp;s=120">
+<span class="last_active_time">4 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b82dd11632c7f422e5b815a' title='每天阅读一个 npm 模块（2）- mem'>
+每天阅读一个 npm 模块（2）- mem
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/vitozyf">
+<img src="https://avatars0.githubusercontent.com/u/26626159?v=4&amp;s=120"
+title="vitozyf"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+2
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+145
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b838ebc632c7f422e5b817a#5b84ba6dfad9359e2e831264">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/26626159?v=4&amp;s=120">
+<span class="last_active_time">4 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b838ebc632c7f422e5b817a' title='sequelize模型中加进get方法后不管什么情况都会自动取值'>
+sequelize模型中加进get方法后不管什么情况都会自动取值
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/enmoon">
+<img src="https://avatars0.githubusercontent.com/u/4179654?v=4&amp;s=120"
+title="enmoon"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+0
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+98
+</span>
+                </span>
+
+
+
+                <span class='last_time pull-right'>
+<span class="last_active_time">4 小时前</span>
+                </span>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b84b81efad9359e2e831261' title='又到薅羊毛的时候了，阿里云服务器 2核4G 1M带宽 40G高效云盘，每天仅需6毛钱'>
+又到薅羊毛的时候了，阿里云服务器 2核4G 1M带宽 40G高效云盘，每天仅需6毛钱
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/15766273878">
+<img src="https://avatars0.githubusercontent.com/u/37205147?v=4&amp;s=120"
+title="15766273878"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+68
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+7595
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5ac478e10ab0448f0fe3f86d#5b84b72a632c7f422e5b81af">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/15187909?v=4&amp;s=120">
+<span class="last_active_time">4 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5ac478e10ab0448f0fe3f86d' title='React入门真难'>
+React入门真难
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/nodeper">
+<img src="https://avatars2.githubusercontent.com/u/41500847?v=4&amp;s=120"
+title="nodeper"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+39
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+1510
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7ac9c7c52ad1482eb940bf#5b84b644632c7f422e5b81ad">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/227713?v=4&amp;s=120">
+<span class="last_active_time">4 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7ac9c7c52ad1482eb940bf' title='Egg.js现在用的人多吗？那些公司在用有知道的吗？'>
+Egg.js现在用的人多吗？那些公司在用有知道的吗？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/kenshinji">
+<img src="https://avatars1.githubusercontent.com/u/1403893?v=4&amp;s=120"
+title="kenshinji"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+39
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+4951
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/59aa4e1d4b69fbeb31e146e0#5b84b29bfad9359e2e831260">
+<img class="user_small_avatar" src="https://avatars1.githubusercontent.com/u/1403893?v=4&amp;s=120">
+<span class="last_active_time">5 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/59aa4e1d4b69fbeb31e146e0' title='新手初学node，撸了一个有道词典命令行工具'>
+新手初学node，撸了一个有道词典命令行工具
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/songsunli">
+<img src="https://avatars1.githubusercontent.com/u/41601667?v=4&amp;s=120"
+title="songsunli"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+38
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+3389
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b5e78f5673571454c633cea#5b84b04b08d0b0fb2d8e6c67">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/24888892?v=4&amp;s=120">
+<span class="last_active_time">5 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b5e78f5673571454c633cea' title='Nodejs+koa2实战视频教程【87讲】--Koa2+Nodejs+MongoDb打造企业级CMS前后端全栈项目实战视频教程'>
+Nodejs+koa2实战视频教程【87讲】--Koa2+Nodejs+MongoDb打造企业级CMS前后端全栈项目实战视频教程
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/remembergf">
+<img src="https://avatars1.githubusercontent.com/u/34055216?v=4&amp;s=120"
+title="remembergf"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+15
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+1084
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b630389b71aedfe4c1266a2#5b84a7fd2a585e4e2f26ff4b">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/24888892?v=4&amp;s=120">
+<span class="last_active_time">6 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b630389b71aedfe4c1266a2' title='node.js的入门（萌新）'>
+node.js的入门（萌新）
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/steambap">
+<img src="https://avatars0.githubusercontent.com/u/9855651?v=4&amp;s=120"
+title="steambap"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+3
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+572
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b80b85ba210553a0cde2c06#5b84a79f2a585e4e2f26ff49">
+<img class="user_small_avatar" src="https://avatars1.githubusercontent.com/u/359395?v=4&amp;s=120">
+<span class="last_active_time">6 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b80b85ba210553a0cde2c06' title='deno v0.1.0 已经发布了'>
+deno v0.1.0 已经发布了
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/liuxing">
+<img src="https://avatars0.githubusercontent.com/u/17724186?v=4&amp;s=120"
+title="liuxing"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+34
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+6851
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b1939ad29e6e510415b2916#5b8406e3fad9359e2e83124c">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/42697622?v=4&amp;s=120">
+<span class="last_active_time">17 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b1939ad29e6e510415b2916' title='《Node.js从入门到上线》入门篇 （持续更新中）'>
+《Node.js从入门到上线》入门篇 （持续更新中）
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/zzzs">
+<img src="https://avatars1.githubusercontent.com/u/11943801?v=4&amp;s=120"
+title="zzzs"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+9
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+385
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b80ce8c944cb8340c27e371#5b83dad0fad9359e2e831244">
+<img class="user_small_avatar" src="https://avatars1.githubusercontent.com/u/11943801?v=4&amp;s=120">
+<span class="last_active_time">20 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b80ce8c944cb8340c27e371' title='egg-router-group: 赋予eggjs路由群组操作的能力'>
+egg-router-group: 赋予eggjs路由群组操作的能力
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/chinahsj">
+<img src="https://avatars0.githubusercontent.com/u/36189354?v=4&amp;s=120"
+title="chinahsj"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+18
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+681
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7d1504632c7f422e5b8080#5b83e3c1fad9359e2e831246">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/12287797?v=4&amp;s=120">
+<span class="last_active_time">19 小时前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7d1504632c7f422e5b8080' title='如果没有接触过koa，建议直接学习egg.js吗？'>
+如果没有接触过koa，建议直接学习egg.js吗？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/fkdswfwqfet">
+<img src="https://avatars1.githubusercontent.com/u/6312190?v=4&amp;s=120"
+title="fkdswfwqfet"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+0
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+113
+</span>
+                </span>
+
+
+
+                <span class='last_time pull-right'>
+<span class="last_active_time">1 天前</span>
+                </span>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b83c6892a585e4e2f26ff3c' title='sequelize，mysql，delete 语句删除报错（）'>
+sequelize，mysql，delete 语句删除报错（）
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/it-ionic">
+<img src="https://avatars1.githubusercontent.com/u/17946554?v=4&amp;s=120"
+title="it-ionic"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+17
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+2492
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b44291035342ab0690613d6#5b83c38608d0b0fb2d8e6c4e">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/8946077?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b44291035342ab0690613d6' title='Electron视频教程_Electron+Vue跨平台桌面软件开发视频教程（收费啊--不贵一包烟钱-有试听）'>
+Electron视频教程_Electron+Vue跨平台桌面软件开发视频教程（收费啊--不贵一包烟钱-有试听）
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/Borkes">
+<img src="https://avatars0.githubusercontent.com/u/20042707?v=4&amp;s=120"
+title="Borkes"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+3
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+228
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7fbb83632c7f422e5b810b#5b83c1712a585e4e2f26ff37">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/20042707?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7fbb83632c7f422e5b810b' title='node中heaptotal缓慢增长内存泄漏导致重启'>
+node中heaptotal缓慢增长内存泄漏导致重启
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/SharksevenRo">
+<img src="https://avatars3.githubusercontent.com/u/8946077?v=4&amp;s=120"
+title="SharksevenRo"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+0
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+225
+</span>
+                </span>
+
+
+
+                <span class='last_time pull-right'>
+<span class="last_active_time">1 天前</span>
+                </span>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b83ba7308d0b0fb2d8e6c4a' title='想买服务器，组个队吧。1.5折！好便宜呀'>
+想买服务器，组个队吧。1.5折！好便宜呀
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/vendar">
+<img src="//gravatar.com/avatar/246abe2445d43c1497ff0481c0ab524c?size=48"
+title="vendar"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+24
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+2583
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b14cdb78a4f51e140d944fc#5b83ba2a632c7f422e5b8184">
+<img class="user_small_avatar" src="//gravatar.com/avatar/a6a74b2dcc9f65dc7c33bd6a92086601?size=48">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b14cdb78a4f51e140d944fc' title='Web框架精选TOP10'>
+Web框架精选TOP10
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/lvhy">
+<img src="https://avatars3.githubusercontent.com/u/12979081?v=4&amp;s=120"
+title="lvhy"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+1
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+148
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b8218bf944cb8340c27e387#5b83b390632c7f422e5b8182">
+<img class="user_small_avatar" src="//gravatar.com/avatar/a6a74b2dcc9f65dc7c33bd6a92086601?size=48">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b8218bf944cb8340c27e387' title='quick-pomelo 运行过程中报错'>
+quick-pomelo 运行过程中报错
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/i5ting">
+<img src="https://avatars3.githubusercontent.com/u/3118295?v=4&amp;s=120"
+title="i5ting"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+33
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+8589
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/59faec85e95aa6373e17fd85#5b839ec3944cb8340c27e3c9">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/3118295?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/59faec85e95aa6373e17fd85' title='实用Node.js，简单粗暴，新手学习的最短曲线'>
+实用Node.js，简单粗暴，新手学习的最短曲线
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/dlyt">
+<img src="https://avatars0.githubusercontent.com/u/18431616?v=4&amp;s=120"
+title="dlyt"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+6
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+552
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7e18ab632c7f422e5b80b5#5b838857a210553a0cde2c50">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/18431616?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7e18ab632c7f422e5b80b5' title='请教一个死锁的问题'>
+请教一个死锁的问题
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/chapgaga">
+<img src="https://avatars0.githubusercontent.com/u/9590859?v=4&amp;s=120"
+title="chapgaga"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+13
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+535
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7bdb5ba210553a0cde2adb#5b837f88a210553a0cde2c4b">
+<img class="user_small_avatar" src="https://avatars0.githubusercontent.com/u/9590859?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7bdb5ba210553a0cde2adb' title='Web Worker为何不支持通过file://访问？'>
+Web Worker为何不支持通过file://访问？
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/BengBu-YueZhang">
+<img src="https://avatars3.githubusercontent.com/u/24958677?v=4&amp;s=120"
+title="BengBu-YueZhang"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+0
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+300
+</span>
+                </span>
+
+
+
+                <span class='last_time pull-right'>
+<span class="last_active_time">1 天前</span>
+                </span>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b836befc52ad1482eb94214' title='【权限】大家好，请教一个接口权限控制的问题'>
+【权限】大家好，请教一个接口权限控制的问题
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/cheunghy">
+<img src="https://avatars0.githubusercontent.com/u/3055936?v=4&amp;s=120"
+title="cheunghy"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+2
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+456
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7cd014a210553a0cde2b12#5b8369c6632c7f422e5b8167">
+<img class="user_small_avatar" src="https://avatars3.githubusercontent.com/u/25699654?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7cd014a210553a0cde2b12' title='GraphQL apollo-server 迎来史上最大更新'>
+GraphQL apollo-server 迎来史上最大更新
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/liyueyx">
+<img src="https://avatars2.githubusercontent.com/u/28620428?v=4&amp;s=120"
+title="liyueyx"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+2
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+273
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b80d441a210553a0cde2c08#5b836671c52ad1482eb94210">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/24642834?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b80d441a210553a0cde2c08' title='fs.existsSync() 判断不准'>
+fs.existsSync() 判断不准
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/songsunli">
+<img src="https://avatars1.githubusercontent.com/u/41601667?v=4&amp;s=120"
+title="songsunli"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+7
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+645
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b7cb6e7944cb8340c27e27f#5b8352a2944cb8340c27e3a7">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/41500847?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">分享</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b7cb6e7944cb8340c27e27f' title='Koa2入门教程20讲+Mongoose入门实战教程20讲,Mongoose aggregate多表关联查询'>
+Koa2入门教程20讲+Mongoose入门实战教程20讲,Mongoose aggregate多表关联查询
+</a>
+                </div>
+            </div>
+            <div class='cell'>
+
+                <a class="user_avatar pull-left" href="/user/zhangshichuan">
+<img src="https://avatars2.githubusercontent.com/u/8280832?v=4&amp;s=120"
+title="zhangshichuan"
+/>
+</a>
+
+                <span class="reply_count pull-left">
+<span class="count_of_replies" title="回复数">
+5
+</span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title='点击数'>
+243
+</span>
+                </span>
+
+
+                <a class='last_time pull-right' href="/topic/5b82867a944cb8340c27e39a#5b83520c944cb8340c27e3a3">
+<img class="user_small_avatar" src="https://avatars2.githubusercontent.com/u/227713?v=4&amp;s=120">
+<span class="last_active_time">1 天前</span>
+</a>
+
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <span class="topiclist-tab">问答</span>
+
+
+
+                    <a class='topic_title' href='/topic/5b82867a944cb8340c27e39a' title='小白刚入坑, 遇到一个视图渲染的问题, 恳请各位大佬指点!'>
+小白刚入坑, 遇到一个视图渲染的问题, 恳请各位大佬指点!
+</a>
+                </div>
+            </div>
+
+        </div>
+        <div class='pagination' current_page='1'>
+            <ul>
+
+
+                <li class='disabled'><a>«</a></li>
+
+
+
+
+
+
+
+
+                <li class='disabled'><a>1</a></li>
+
+
+
+                <li><a href='/?tab=all&amp;page=2'>2</a></li>
+
+
+
+                <li><a href='/?tab=all&amp;page=3'>3</a></li>
+
+
+
+                <li><a href='/?tab=all&amp;page=4'>4</a></li>
+
+
+
+                <li><a href='/?tab=all&amp;page=5'>5</a></li>
+
+
+
+
+                <li><a>...</a></li>
+
+
+
+                <li><a href='/?tab=all&amp;page=89'>»</a></li>
+
+            </ul>
+        </div>
+        
+
+    </div>
+
+</div>
+</article>
+
+<% block('scripts').append(`<script>
+    $(document).ready(function() {
+        $('.follow_btn').click(function() {
+            var $me = $(this);
+            var action = $me.attr('action');
+            var params = {
+                follow_id: '5949f5c7ff5813233faadad7',
+                _csrf: 'vlUgGvkx-SgmuzendL9gAP3DHXVS3834IpC4'
+            };
+            $.post('/user/' + action, params, function(data) {
+                if (data.status === 'success') {
+                    var $btns = $('.follow_btn');
+                    if (action === 'follow') {
+                        $btns.html('取消关注');
+                        $btns.attr('action', 'un_follow');
+                    } else {
+                        $btns.html('加入关注');
+                        $btns.attr('action', 'follow');
+                    }
+                    $btns.toggleClass('btn-success');
+                }
+            }, 'json');
+        });
+    });
+</script>`) %>
+
+<% block('scripts').append(`<script>
+    $(document).ready(function() {
+        var $nav = $('.pagination');
+        var current_page = $nav.attr('current_page');
+        if (current_page) {
+            $nav.find('li').each(function() {
+                var $li = $(this);
+                var $a = $li.find('a');
+                if ($a.html() == current_page) {
+                    $li.addClass('active');
+                    $a.removeAttr('href');
+                }
+            });
+        }
+    });
+</script>`) %>
+
+    
+
+
+
