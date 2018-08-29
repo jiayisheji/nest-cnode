@@ -31,6 +31,7 @@
     "test:e2e": "set NODE_ENV=test&& jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
     "lint": "tslint \"src/**/*.ts\" --force",
+    "assets": "loader /views /",
     "release": "standard-version && git push --follow-tags origin master"
   },
   "pre-commit": [
@@ -45,7 +46,7 @@
     "@nestjs/testing": "^5.1.0",
     "@nestjs/websockets": "^5.1.0",
     "dotenv": "^6.0.0",
-    "ejs": "^2.6.1",
+    "ejs-mate": "^2.3.0",
     "ioredis": "^4.0.0",
     "joi": "^13.6.0",
     "loader": "^2.1.1",
