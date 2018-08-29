@@ -1,0 +1,7 @@
+<% layout('layout') -%>
+<h1>我是首页</h1>
+<img src="/public/images/logo.png" alt="logo">
+<% block('head').append('<link type="text/css" href="/append.css">') %>
+<% block('head').prepend('<link type="text/css" href="/prepend.css">') %>
+<% block('head').prepend('<link type="text/css" href="/prepend2.css">') %>
+<% block('head').append('<link type="text/css" href="/append2.css">') %>
