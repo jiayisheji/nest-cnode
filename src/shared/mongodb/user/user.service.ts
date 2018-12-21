@@ -9,7 +9,12 @@ export class UserService extends BaseService<User> {
     constructor(
         @InjectModel('User') private readonly userModel: Model<User>,
     ) {
-        super();
-        this._model = userModel;
+        super(userModel);
+    }
+
+    async create(docs: any): Promise<User>{
+        docs.name = docs.loginname;
+        const user = await super.create(docs);
+        return user.save();
     }
 }
