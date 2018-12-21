@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Configuration } from './config';
+import { FeatureModule } from './feature/feature.module';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(Configuration.get('mongodb_url'), { useNewUrlParser: true }),
+    CoreModule,
+    FeatureModule,
   ],
   controllers: [AppController],
   providers: [ AppService ],

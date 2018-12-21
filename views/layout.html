@@ -6,7 +6,7 @@
     <title>CNode：Node.js专业中文社区</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name='description' content='CNode：Node.js专业中文社区'>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="keywords" content="nodejs, node, express, connect, socket.io" />
     <!-- see http://smerity.com/articles/2013/where_did_all_the_http_referrers_go.html -->
@@ -14,11 +14,11 @@
     <meta name="author" content="EDP@TaoBao" />
     <meta property="wb:webmaster" content="617be6bd946c6b96" />
     <meta content="_csrf" name="csrf-param">
-    <meta content="vlUgGvkx-SgmuzendL9gAP3DHXVS3834IpC4" name="csrf-token">
+    <meta content="<%= csrf %>" name="csrf-token">
     <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss" />
-    <link rel="icon" href="//o4j806krb.qnssl.com/public/images/cnode_icon_32.png" type="image/x-icon" />
+    <link rel="icon" href="//static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon" />
     <!-- style -->
-    <link rel="stylesheet" href="//o4j806krb.qnssl.com/public/stylesheets/index.min.23a5b1ca.min.css" media="all" />
+    <link rel="stylesheet" href="//static2.cnodejs.org/public/stylesheets/index.min.23a5b1ca.min.css" media="all" />
     <%- block('styles').toString() %>
 </head>
 
@@ -26,7 +26,7 @@
     <header class="navbar">
         <div class='navbar-inner'>
             <div class='container'>
-                <a class='brand' href='/'><img src="//o4j806krb.qnssl.com/public/images/cnodejs_light.svg" /></a>
+                <a class='brand' href='/'><img src="//static2.cnodejs.org/public/images/cnodejs_light.svg" /></a>
                 <form id='search_form' class='navbar-search' action="/search">
                     <input type='text' id='q' name='q' class='search-query span3' value='' />
                 </form>
@@ -64,17 +64,14 @@
                 <p>CNode 社区为国内最专业的 Node.js 开源技术社区，致力于 Node.js 的技术研究。</p>
                 <p>服务器赞助商为
                     <a href="http://www.ucloud.cn/?utm_source=zanzhu&utm_campaign=cnodejs&utm_medium=display&utm_content=yejiao&ytag=cnodejs_logo" target="_blank" class="sponsor_outlink" data-label="ucloud_bottom">
-            <img src="//dn-cnode.qbox.me/FuIpEaM9bvsZKnQ3QfPtBHWQmLM9" title="ucloud"
-            alt="ucloud" width="92px"/>
-            </a> ，存储赞助商为
+                        <img src="//dn-cnode.qbox.me/FuIpEaM9bvsZKnQ3QfPtBHWQmLM9" title="ucloud" alt="ucloud" width="92px" />
+                    </a> ，存储赞助商为
                     <a href="http://www.qiniu.com/?ref=cnode" target="_blank" class="sponsor_outlink" data-label="qiniu_bottom">
-            <img src="//dn-cnode.qbox.me/Fg0jtDIcTqVC049oVu5-sn6Om4NX" title="七牛云存储"
-            alt="七牛云存储" width="115px"/>
-            </a> ，由
+                        <img src="//dn-cnode.qbox.me/Fg0jtDIcTqVC049oVu5-sn6Om4NX" title="七牛云存储" alt="七牛云存储" width="115px" />
+                    </a> ，由
                     <a href="https://www.aliyun.com/product/nodejs?ref=cnode" target="_blank" class="sponsor_outlink" data-label="alinode_bottom">
-            <img src="//dn-cnode.qbox.me/FpMZk31PDyxkC8yStmMQL4XroaGD" title="alinode"
-            alt="alinode" height="54px" width="166px"/>
-            </a>提供应用性能服务。
+                        <img src="//dn-cnode.qbox.me/FpMZk31PDyxkC8yStmMQL4XroaGD" title="alinode" alt="alinode" height="54px" width="166px" />
+                    </a>提供应用性能服务。
                 </p>
                 <p>新手搭建 Node.js 服务器，推荐使用无需备案的 <a href="https://www.digitalocean.com/?refcode=eba02656eeb3">DigitalOcean(https://www.digitalocean.com/)</a></p>
             </div>
@@ -85,7 +82,7 @@
     <div id="backtotop">回到顶部</div>
     <div id="sidebar-mask"></div>
     <!-- scripts -->
-    <script src="//o4j806krb.qnssl.com/public/index.min.f7c13f64.min.js"></script>
+    <script src="//static2.cnodejs.org/public/index.min.f7c13f64.min.js"></script>
     <%- block('scripts').toString() %>
 </body>
 
