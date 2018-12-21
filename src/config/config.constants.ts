@@ -1,0 +1,1 @@
+export const ConfigToken = 'ConfigToken';
