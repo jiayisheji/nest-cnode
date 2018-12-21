@@ -5,7 +5,7 @@
 
 ## Description
 
-This is using the `Nestjs` imitation [Cnode](https://cnodejs.org).
+This is using the [Nestjs](https://github.com/nestjs/nest) imitation [Cnode](https://cnodejs.org).
 
 ## Installation
 
@@ -131,3 +131,44 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Dependencies
+
+Dependencies are managed through package.json. In that file you'll find two sections:
+
+### dependencies
+
+Package | Description
+---|---
+bcryptjs | Library for hashing and salting user passwords
+dotenv | Loads environment variables from .env file
+ejs-mate | Ejs template engine for Express
+ioredis | Redis ODM
+mongoose | MongoDB ODM
+nodemailer | Node.js library for sending emails
+passport | Simple and elegant authentication library for node.js
+passport-local | Sign-in with Username and Password plugin
+passport-github | Sign-in with Github plugin
+typescript | JavaScript compiler/type checker that boosts JavaScript productivity
+
+### devDependencies
+
+Package | Description
+---|---
+@types | Dependencies in this folder are .d.ts files used to provide types
+cross-env | Cross platform setting of environment scripts
+jest | Testing library for JavaScript
+nodemon | Utility that automatically restarts node process when it crashes
+supertest | HTTP assertion library
+ts-jest | A preprocessor with sourcemap support to help use TypeScript wit Jest
+ts-node | Enables directly running TS files. Used to run copy-static-assets.ts
+tslint | Linter (similar to ESLint) for TypeScript files
+
+## Reference
+
+1. Awesome Nest
+ - [https://github.com/juliandavidmr/awesome-nest](https://github.com/juliandavidmr/awesome-nest)
+2. NestJS Samples
+ - [https://github.com/nestjs/nest/tree/master/sample](https://github.com/nestjs/nest/tree/master/sample)
+
+ 
