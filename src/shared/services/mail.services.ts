@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectMailer, MailerService } from 'core/mailer';
+import { MailerService } from 'core/mailer';
 import { ConfigService, EnvConfig } from 'config';
-import { InjectConfig } from 'config/config.decorators';
 
 @Injectable()
 export class MailService {
@@ -9,12 +8,12 @@ export class MailService {
     private readonly name: string;
     private readonly host: string;
     constructor(
-        @InjectMailer() private readonly mailer: MailerService,
-        @InjectConfig() private readonly config: ConfigService<EnvConfig>,
+        private readonly mailer: MailerService,
+        private readonly configService: ConfigService<EnvConfig>,
     ) {
-        this.name = this.config.get('name');
-        this.host = `${this.config.get('HOST')}:${this.config.get('PORT')}`;
-        this.from = `${this.name} <${this.config.get('MAIL_USER')}>`;
+        this.name = this.configService.get('name');
+        this.host = `${this.configService.get('HOST')}:${this.configService.get('PORT')}`;
+        this.from = `${this.name} <${this.configService.get('MAIL_USER')}>`;
     }
 
     /**

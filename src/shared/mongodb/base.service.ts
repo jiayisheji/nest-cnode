@@ -103,7 +103,7 @@ export abstract class BaseService<T extends Document> {
             page: 1,
             pages: 0,
         };
-        const { offset, page, option } = options;
+        const { offset, page, option } = options || { offset: 0, page: 1, option: {}};
         if (offset !== undefined) {
             result.offset = options.offset;
             options.skip = offset;
@@ -136,8 +136,8 @@ export abstract class BaseService<T extends Document> {
         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
         [key: string]: any;
     }): Promise<T | null> {
-        const { option, populates } = options;
-        const docsQuery = this._model.findOne(conditions, projection, option);
+        const { option, populates } = options || { option: {}, populates: [] };
+        const docsQuery = this._model.findOne(conditions, projection || {}, option);
         return this.populates<T>(docsQuery, populates);
     }
 
