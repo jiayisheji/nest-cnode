@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common
 import { hashSync, compareSync } from 'bcryptjs';
 import * as utility from 'utility';
 import { UserService, User } from 'shared';
-import { RegisterDto, AccountDto, LoginDto } from './dto';
+import { RegisterDto, AccountDto } from './dto';
 import { APP_CONFIG } from '../../core';
 import { ConfigService } from 'config';
 import { MailService } from 'shared/services/mail.services';
