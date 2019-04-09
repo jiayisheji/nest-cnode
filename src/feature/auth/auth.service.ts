@@ -2,10 +2,10 @@ import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common
 import { hashSync, compareSync } from 'bcryptjs';
 import * as utility from 'utility';
 import { UserService, User } from 'shared';
-import { RegisterDto } from './dto';
+import { RegisterDto, AccountDto, LoginDto } from './dto';
 import { APP_CONFIG } from '../../core';
 import { ConfigService } from 'config';
-import { MailerService } from 'core/mailer';
+import { MailService } from 'shared/services/mail.services';
 
 @Injectable()
 export class AuthService {
@@ -13,9 +13,10 @@ export class AuthService {
     constructor(
         private readonly userService: UserService,
         private readonly config: ConfigService,
-        private readonly mailerService: MailerService,
+        private readonly mailService: MailService,
     ) { }
 
+    /** 注册 */
     async register(register: RegisterDto) {
         const { loginname, email } = register;
         // 检查用户是否存在，查询登录名和邮箱
@@ -39,22 +40,8 @@ export class AuthService {
         try {
             await this.userService.create({ loginname, email, pass: passhash });
 
-            const subject = APP_CONFIG.name + '社区帐号激活';
-            const host = `${this.config.get('HOST')}:${this.config.get('PORT')}`;
-            const from = `${APP_CONFIG.name} <${this.config.get('MAIL_USER')}>`;
             const token = utility.md5(email + passhash + this.config.get('SESSION_SECRET'));
-            const html = '<p>您好：' + loginname + '</p>' +
-                '<p>我们收到您在' + APP_CONFIG.name + '社区的注册信息，请点击下面的链接来激活帐户：</p>' +
-                '<a href="' + host + '/active_account?key=' + token + '&name=' + loginname + '">激活链接</a>' +
-                '<p>若您没有在' + APP_CONFIG.name + '社区填写过注册信息，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
-                '<p>' + APP_CONFIG.name + '社区 谨上。</p>';
-
-            this.mailerService.send({
-                from,
-                to: email,
-                subject,
-                html,
-            });
+            this.mailService.sendActiveMail(email, token, loginname);
 
             return {
                 success: `欢迎加入 ${APP_CONFIG.name}！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。`,
@@ -63,4 +50,29 @@ export class AuthService {
            throw new InternalServerErrorException(error);
         }
     }
+
+    /** 激活账户 */
+    async activeAccount({ name, key }: AccountDto) {
+        const user = await this.userService.findOne({
+            loginname: name,
+        });
+        // 检查用户是否存在
+        if (!user) {
+            return { error: '用户不存在' };
+        }
+        // 对比key是否正确
+        if (!user || utility.md5(user.email + user.pass + this.config.get('SESSION_SECRET')) !== key) {
+            return { error: '信息有误，帐号无法被激活。' };
+        }
+        // 检查用户是否激活过
+        if (user.active) {
+            return { error: '帐号已经是激活状态。', referer: '/login' };
+        }
+
+        // 如果没有激活，就激活操作
+        user.active = true;
+        await user.save();
+        return { success: '帐号已被激活，请登录', referer: '/login' };
+    }
+
 }

@@ -15,6 +15,8 @@ import { getRedisConfig } from 'tools/get-redis';
 import { HttpExceptionFilter } from 'core/filters/http-exception.filter';
 import { ValidationPipe } from '@nestjs/common';
 
+import { Request, Response, NextFunction } from 'express';
+
 async function bootstrap() {
   // 根目录 nest-cnode
   const rootDir = join(__dirname, '..');
@@ -45,7 +47,7 @@ async function bootstrap() {
   // 注册session中间件
   app.use(expressSession({
     name: 'jiayi',
-    secret,  // 用来对sessionid 相关的 cookie 进行签名
+    secret,  // 用来对 sessionid 相关的 cookie 进行签名
     store: new RedisStore(getRedisConfig(config)),  // 本地存储session（文本文件，也可以选择其他store，比如redis的）
     saveUninitialized: false,  // 是否自动保存未初始化的会话，建议false
     resave: false,  // 是否每次都重新保存会话，建议false
@@ -56,8 +58,8 @@ async function bootstrap() {
   app.use(csurf({ cookie: true }));
 
   // 设置变量 csrf 保存csrfToken值
-  app.use((req, res, next) => {
-    res.locals.csrf = req.csrfToken ? req.csrfToken() : '';
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.csrf = (req as any).csrfToken ? (req as any).csrfToken() : '';
     next();
   });
   // 注册并配置全局验证管道
