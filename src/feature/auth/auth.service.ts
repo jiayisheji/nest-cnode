@@ -1,11 +1,16 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { hashSync, compareSync } from 'bcryptjs';
 import * as utility from 'utility';
-import { UserService, User } from 'shared';
+import { UserService, User } from '../../shared';
 import { RegisterDto, AccountDto } from './dto';
 import { APP_CONFIG } from '../../core';
-import { ConfigService } from 'config';
-import { MailService } from 'shared/services/mail.services';
+import { ConfigService } from '../../config';
+import { MailService } from '../../shared/services/mail.services';
+import { Validator } from 'class-validator';
+import { GitHubProfile } from './passport/github.strategy';
+
+// Validation methods
+const validator = new Validator();
 
 @Injectable()
 export class AuthService {
@@ -73,6 +78,106 @@ export class AuthService {
         user.active = true;
         await user.save();
         return { success: '帐号已被激活，请登录', referer: '/login' };
+    }
+
+    /** 本地登录 */
+    async local(username: string, password: string) {
+        // 处理用户名和密码前后空格，用户名全部小写 保证和注册一致
+        username = username.trim().toLowerCase();
+        password = password.trim();
+        // 验证用户名
+        // 可以用户名登录 /^[a-zA-Z0-9\-_]\w{4,20}$/
+        // 可以邮箱登录 标准邮箱格式
+        // 做一个验证用户名适配器
+        const verifyUsername = (name: string) => {
+            // 如果输入账号里面有@，表示是邮箱
+            if (name.indexOf('@') > 0) {
+                return validator.isEmail(name);
+            }
+            return validator.matches(name, /^[a-zA-Z0-9\-_]\w{4,20}$/);
+        };
+        if (!verifyUsername(username)) {
+            throw new UnauthorizedException('用户名格式不正确。');
+        }
+        // 验证密码 密码长度是6-18位
+        if (!validator.isByteLength(password, 6, 18)) {
+            throw new UnauthorizedException('密码长度不是6-18位。');
+        }
+        // 做一个获取用户适配器
+        const getUser = (name: string) => {
+            // 如果输入账号里面有@，表示是邮箱
+            if (name.indexOf('@') > 0) {
+                return this.userService.getUserByMail(name);
+            }
+            return this.userService.getUserByLoginName(name);
+        };
+        const user = await getUser(username);
+        // 检查用户是否存在
+        if (!user) {
+            throw new UnauthorizedException('用户不存在。');
+        }
+        const equal = compareSync(password, user.pass);
+        // 密码不匹配
+        if (!equal) {
+            throw new UnauthorizedException('用户密码不匹配。');
+        }
+        // 用户未激活
+        if (!user.active) {
+            // 发送激活邮件
+            const token = utility.md5(user.email + user.pass + this.config.get('SESSION_SECRET'));
+            this.mailService.sendActiveMail(user.email, token, user.loginname);
+            throw new UnauthorizedException('此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。');
+        }
+        // 验证通过
+        return user;
+    }
+
+    /** github登录 */
+    async github(profile: GitHubProfile) {
+        console.log('github', profile);
+        if (!profile) {
+            throw new UnauthorizedException('您 GitHub 账号的 认证失败');
+        }
+        // 获取用户的邮箱
+        const email = profile.emails && profile.emails[0] && profile.emails[0].value;
+        // 根据 githubId 查找用户
+        let existUser = await this.userService.getUserByGithubId(profile.id);
+
+        // 用户不存在则创建
+        if (!existUser) {
+            existUser = new this.userService.getMode();
+            existUser.githubId = profile.id;
+            existUser.active = true;
+            existUser.accessToken = profile.accessToken;
+        }
+
+        // 用户存在，更新字段
+        existUser.loginname = profile.username;
+        existUser.email = email || existUser.email;
+        existUser.avatar = profile._json.avatar_url;
+        existUser.githubUsername = profile.username;
+        existUser.githubAccessToken = profile.accessToken;
+
+        // 保存用户到数据库
+        try {
+            await existUser.save();
+            // 返回用户
+            return existUser;
+        } catch (error) {
+            // 获取MongoError错误信息
+            const errmsg = error.errmsg || '';
+            // 处理邮箱和用户名重复问题
+            if (errmsg.indexOf('duplicate key error') > -1) {
+                if (errmsg.indexOf('email') > -1) {
+                    throw new UnauthorizedException('您 GitHub 账号的 Email 与之前在 CNodejs 注册的 Email 重复了');
+                }
+
+                if (errmsg.indexOf('loginname') > -1) {
+                    throw new UnauthorizedException('您 GitHub 账号的用户名与之前在 CNodejs 注册的用户名重复了');
+                }
+            }
+            throw new InternalServerErrorException(error);
+        }
     }
 
 }

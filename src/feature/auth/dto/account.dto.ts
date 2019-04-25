@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { ValidatorFilter, ViewsPath } from 'core';
+import { ValidatorFilter, ViewsPath } from '../../../core';
 
 @ValidatorFilter({
     render: ViewsPath.Notify,

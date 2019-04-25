@@ -4,21 +4,27 @@ import 'reflect-metadata';
 import { ValidationError } from 'class-validator';
 import { VALIDATOR_FILTER } from '../constants/validator-filter.constants';
 import { ValidatorFilterContext } from 'core';
+import { ViewsPath } from 'core';
+import { TRequest, TResponse } from '../../shared/interfaces/express';
+const passport = ['/login'];
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
     catch(exception: HttpException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
-        const response: Response  = ctx.getResponse();
-        const request: Request = ctx.getRequest();
+        const response: TResponse  = ctx.getResponse();
+        const request: TRequest = ctx.getRequest();
         const status = exception.getStatus();
         switch (status) {
             case HttpStatus.BAD_REQUEST: // 如果错误码 400
                 const render = validationErrorMessage(exception.message.message);
                 response.render(render.view, render.locals);
                 break;
+            case HttpStatus.UNAUTHORIZED: // 如果错误码 401
+                request.flash('loginError', exception.message.message || '信息不全。');
+                response.redirect('/login');
+                break;
             default:
-                console.log(exception.message);
                 response
                     .status(status)
                     .json({
@@ -46,7 +52,7 @@ function validationErrorMessage(messages: ValidationError[]): Render {
         throw Error('context is not undefined, use @ValidatorFilter(context)');
     }
     // 处理错误消息显示
-    const priorities = metadata.priority[message.property];
+    const priorities = metadata.priority[message.property] || [];
     let error = '';
     const notFound = priorities.some((key) => {
         key = key.replace(/\b(\w)(\w*)/g, ($0, $1, $2) => {

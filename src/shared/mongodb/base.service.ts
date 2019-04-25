@@ -26,6 +26,13 @@ export interface Paginator<T> {
 export abstract class BaseService<T extends Document> {
     constructor(private readonly _model: Model<T>) {}
     /**
+     * 返回模型
+     */
+    get getMode(): Model<T> {
+        return this._model;
+    }
+
+    /**
      * 转化数据
      * @template K
      * @param {(Partial<T> | Partial<T>[])} object

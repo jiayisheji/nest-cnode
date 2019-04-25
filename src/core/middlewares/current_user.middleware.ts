@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
-import { ConfigService } from 'config';
+import { ConfigService } from '../../config';
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {

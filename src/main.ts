@@ -1,27 +1,30 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 
 import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as expressSession from 'express-session';
 import * as connectRedis from 'connect-redis';
 import * as csurf from 'csurf';
-
+import * as passport from 'passport';
 import * as ejsMate from 'ejs-mate';
 import * as loaderConnect from 'loader-connect';
+import * as flash from 'connect-flash';
 
 import { AppModule } from './app.module';
-import { ConfigService } from 'config';
-import { getRedisConfig } from 'tools/get-redis';
-import { HttpExceptionFilter } from 'core/filters/http-exception.filter';
-import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from './config';
+import { getRedisConfig } from './tools/get-redis';
+import { HttpExceptionFilter } from './core/filters/http-exception.filter';
 
-import { Request, Response, NextFunction } from 'express';
+import { TRequest, TResponse, TNext } from './shared';
 
 async function bootstrap() {
   // 根目录 nest-cnode
   const rootDir = join(__dirname, '..');
   const app = await NestFactory.create(AppModule);
+  // 初始化
   app.init();
+  // 获取配置
   const config: ConfigService<any> = app.get(ConfigService);
 
   // 注意：这个要在express.static之前调用，loader2.0之后要使用loader-connect
@@ -54,12 +57,17 @@ async function bootstrap() {
   }));
   // 注册cookies中间件
   app.use(cookieParser(secret));
+  // 注册消息中间件
+  app.use(flash());
+  // 注册passport中间件
+  app.use(passport.initialize());
+  app.use(passport.session());
   // 防止跨站请求伪造
   app.use(csurf({ cookie: true }));
 
   // 设置变量 csrf 保存csrfToken值
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    res.locals.csrf = (req as any).csrfToken ? (req as any).csrfToken() : '';
+  app.use((req: TRequest, res: TResponse, next: TNext) => {
+    res.locals.csrf = req.csrfToken ? req.csrfToken() : '';
     next();
   });
   // 注册并配置全局验证管道
@@ -73,6 +81,6 @@ async function bootstrap() {
   // 注册全局http异常过滤器
   app.useGlobalFilters(new HttpExceptionFilter());
   // 启动监听3000端口 浏览器访问 http://localhost:3000
-  await app.listen(3000);
+  await app.listen(3000, 'localhost');
 }
 bootstrap();

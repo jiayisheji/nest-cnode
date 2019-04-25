@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { Matches, IsByteLength, IsNotEmpty, IsEmail, IsOptional, MinLength } from 'class-validator';
-import { IsEqualsThan, ViewsPath, ValidatorFilter } from 'core';
+import { IsEqualsThan, ViewsPath, ValidatorFilter } from '../../../core';
 
 @ValidatorFilter({
     render: ViewsPath.Register,

@@ -17,13 +17,18 @@
             }
         },
         {
-            "name": "TypeScript Debug - File",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
+            "name": "Debug Nest Framework",
             "args": [
-                "${relativeFile}"
+                "${workspaceFolder}/src/main.ts"
             ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
             "cwd": "${workspaceRoot}",
             "protocol": "inspector"
         },

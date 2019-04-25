@@ -3,9 +3,13 @@ import { ConfigModule, EnvConfig, ConfigService } from '../config';
 import { ConfigValidate } from './config.validate';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MailerModule, SMTPTransportOptions } from './mailer';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
     imports: [
+        PassportModule.register({
+            session: false,
+        }),
         ConfigModule.forRoot<EnvConfig>(null, ConfigValidate.validateInput),
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
