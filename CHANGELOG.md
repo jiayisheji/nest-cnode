@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/jiayisheji/nest-cnode/compare/v0.2.0...v0.3.0) (2019-06-20)
+
+
+### Bug Fixes
+
+* **feature:**  修复导入错误的dto ([db64ecd](https://github.com/jiayisheji/nest-cnode/commit/db64ecd))
+* **工具模块:**  提交获取redis配置 ([b49736e](https://github.com/jiayisheji/nest-cnode/commit/b49736e))
+
+
+### Features
+
+* **feature:**  实现登录功能 ([81f1575](https://github.com/jiayisheji/nest-cnode/commit/81f1575))
+* **feature:**  新增注册验证邮箱功能 ([a638d03](https://github.com/jiayisheji/nest-cnode/commit/a638d03))
+* **views:**  完善静态模板 layout，sidebar，index ([2dcd2d7](https://github.com/jiayisheji/nest-cnode/commit/2dcd2d7))
+* **共享模块:**  新增基础数据库操作服务和user数据集合定义 并且在核心模块配置链接数据库 ([6a22fae](https://github.com/jiayisheji/nest-cnode/commit/6a22fae))
+* **核心模块:**  新增2个中间件 获取当前用户和设置应用变量 更新main启动配置 ([5d7c35a](https://github.com/jiayisheji/nest-cnode/commit/5d7c35a))
+* **核心模块:**  新增IsEqualsThan 动态全等比较自定义验证装饰器 ([5185f18](https://github.com/jiayisheji/nest-cnode/commit/5185f18))
+* **核心模块:**  新增mailer模块 并建立注册和找回密码邮件验证服务 ([8cce6fd](https://github.com/jiayisheji/nest-cnode/commit/8cce6fd))
+* **认证模块:**  新增注册功能 dto验证方式编写 ([d064a62](https://github.com/jiayisheji/nest-cnode/commit/d064a62))
+* **配置模块:**  新增config模块 并在核心模块里面配置引入 ([c99e414](https://github.com/jiayisheji/nest-cnode/commit/c99e414))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/jiayisheji/nest-cnode/compare/v0.1.0...v0.2.0) (2018-08-29)
 
