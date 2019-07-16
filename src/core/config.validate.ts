@@ -1,9 +1,9 @@
 import * as Joi from 'joi';
-import { EnvConfig } from 'config';
+import { EnvConfig, EnvValidator } from './config';
 
-export class ConfigValidate {
+export class ConfigValidate implements EnvValidator {
     /** 确保设置了所有需要的变量，并返回经过验证的JavaScript对象，包括应用的默认值。 */
-    static validateInput(envConfig: EnvConfig): EnvConfig {
+    validateInput(envConfig: EnvConfig): EnvConfig {
         const envVarsSchema: Joi.ObjectSchema = Joi.object({
             NODE_ENV: Joi.string()
                 .valid(['development', 'production', 'test'])

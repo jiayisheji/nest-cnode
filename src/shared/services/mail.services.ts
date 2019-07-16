@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '../../core/mailer';
-import { ConfigService, EnvConfig } from '../../config';
+import { ConfigService } from 'core/config';
 
 @Injectable()
 export class MailService {
@@ -9,7 +9,7 @@ export class MailService {
     private readonly host: string;
     constructor(
         private readonly mailer: MailerService,
-        private readonly configService: ConfigService<EnvConfig>,
+        private readonly configService: ConfigService,
     ) {
         this.name = 'CNode技术社区';
         this.host = `${this.configService.get('HOST')}:${this.configService.get('PORT')}`;
@@ -22,7 +22,7 @@ export class MailService {
      * @param token token
      * @param username 名字
      */
-    sendActiveMail(to: string, token: string, username: string){
+    sendActiveMail(to: string, token: string, username: string) {
         const name = this.name;
         const subject = `${name}帐号激活`;
         const html = `<p>您好：${username}</p>

@@ -17,4 +17,4 @@ import { GithubStrategy } from './passport/github.strategy';
   ],
   controllers: [AuthController],
 })
-export class AuthModule {}
+export class AuthModule { }

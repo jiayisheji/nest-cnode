@@ -1,11 +1,13 @@
 import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
-import { ConfigService } from '../../config';
+import { TRequest, TResponse, TNext } from 'shared';
+import { ConfigService } from 'core/config';
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
-    constructor(private readonly configService: ConfigService) { }
-    resolve(...args: any[]): MiddlewareFunction {
-        return (req, res, next) => {
+    constructor() { }
+    resolve(): MiddlewareFunction {
+        return (req: TRequest, res: TResponse, next: TNext) => {
+            // 确保始终定义了current_user
             res.locals.current_user = null;
             const { user } = req;
             if (!user) {

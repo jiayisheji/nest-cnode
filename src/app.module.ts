@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FeatureModule } from './feature/feature.module';
 import { CoreModule } from './core/core.module';
-import { CurrentUserMiddleware } from './core/middlewares';
+import { CurrentUserMiddleware, LocalsMiddleware } from './core/middlewares';
 
 @Module({
   imports: [
@@ -11,12 +11,12 @@ import { CurrentUserMiddleware } from './core/middlewares';
     FeatureModule,
   ],
   controllers: [AppController],
-  providers: [ AppService ],
+  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(CurrentUserMiddleware)
+      .apply(CurrentUserMiddleware, LocalsMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

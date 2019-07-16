@@ -1,20 +1,29 @@
 import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { hashSync, compareSync } from 'bcryptjs';
 import * as utility from 'utility';
-import { UserService, User } from '../../shared';
+import { UserService } from '../../shared';
 import { RegisterDto, AccountDto } from './dto';
 import { APP_CONFIG } from '../../core';
-import { ConfigService } from '../../config';
 import { MailService } from '../../shared/services/mail.services';
 import { Validator } from 'class-validator';
 import { GitHubProfile } from './passport/github.strategy';
+import { ConfigService } from 'core/config';
 
 // Validation methods
 const validator = new Validator();
 
+function encryptMD5(key: string): string {
+    return utility.md5(key);
+}
+
+function diffEncryptMD5(source: string, target: string): boolean {
+    return encryptMD5(source) === target;
+}
+
 @Injectable()
 export class AuthService {
     private readonly logger = new Logger(AuthService.name, true);
+    private readonly secret: string = this.config.get('express.secret');
     constructor(
         private readonly userService: UserService,
         private readonly config: ConfigService,
@@ -45,14 +54,14 @@ export class AuthService {
         try {
             await this.userService.create({ loginname, email, pass: passhash });
 
-            const token = utility.md5(email + passhash + this.config.get('SESSION_SECRET'));
+            const token = encryptMD5(email + passhash + this.secret);
             this.mailService.sendActiveMail(email, token, loginname);
 
             return {
                 success: `欢迎加入 ${APP_CONFIG.name}！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。`,
             };
         } catch (error) {
-           throw new InternalServerErrorException(error);
+            throw new InternalServerErrorException(error);
         }
     }
 
@@ -66,7 +75,7 @@ export class AuthService {
             return { error: '用户不存在' };
         }
         // 对比key是否正确
-        if (!user || utility.md5(user.email + user.pass + this.config.get('SESSION_SECRET')) !== key) {
+        if (!user || !diffEncryptMD5(user.email + user.pass + this.secret, key)) {
             return { error: '信息有误，帐号无法被激活。' };
         }
         // 检查用户是否激活过
@@ -124,7 +133,7 @@ export class AuthService {
         // 用户未激活
         if (!user.active) {
             // 发送激活邮件
-            const token = utility.md5(user.email + user.pass + this.config.get('SESSION_SECRET'));
+            const token = encryptMD5(user.email + user.pass + this.secret);
             this.mailService.sendActiveMail(user.email, token, user.loginname);
             throw new UnauthorizedException('此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。');
         }
@@ -134,7 +143,6 @@ export class AuthService {
 
     /** github登录 */
     async github(profile: GitHubProfile) {
-        console.log('github', profile);
         if (!profile) {
             throw new UnauthorizedException('您 GitHub 账号的 认证失败');
         }

@@ -1,20 +1,28 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, EnvConfig, ConfigService } from '../config';
+import { ConfigModule, ConfigService } from './config';
 import { ConfigValidate } from './config.validate';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MailerModule, SMTPTransportOptions } from './mailer';
 import { PassportModule } from '@nestjs/passport';
-
+import { resolve } from 'path';
+import { MailConfig } from 'config/mail';
 @Module({
     imports: [
         PassportModule.register({
             session: false,
         }),
-        ConfigModule.forRoot<EnvConfig>(null, ConfigValidate.validateInput),
+        ConfigModule
+            .resolveRootPath(resolve(__dirname, '../..'))
+            .resolveEnvValidator(new ConfigValidate())
+            .forRoot(
+                resolve(__dirname, '..', 'config', '**', '!(*.d).{ts,js}'),
+                {
+                    path: `${process.env.NODE_ENV || 'development'}.env`,
+                }),
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => ({
-                uri: configService.get('MONGODB_URI'),
+                uri: configService.get('env.MONGODB_URI'),
                 useNewUrlParser: true,
             }),
             inject: [ConfigService],
@@ -22,18 +30,7 @@ import { PassportModule } from '@nestjs/passport';
         MailerModule.forRootAsync<SMTPTransportOptions>({
             imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => {
-                const mailer = configService.getKeys(['MAIL_HOST', 'MAIL_PORT', 'MAIL_USER', 'MAIL_PASS']);
-                return {
-                    host: mailer.MAIL_HOST,     // 邮箱smtp地址
-                    port: mailer.MAIL_PORT * 1, // 端口号
-                    secure: true,
-                    secureConnection: true,
-                    auth: {
-                        user: mailer.MAIL_USER,  // 邮箱账号
-                        pass: mailer.MAIL_PASS,  // 授权码
-                    },
-                    ignoreTLS: true,
-                };
+                return configService.get<MailConfig>('mail');
             },
             inject: [ConfigService],
         }),
