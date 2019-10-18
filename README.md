@@ -1,4 +1,5 @@
 # nest-cnode
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -11,34 +12,34 @@ This is using the [Nestjs](https://github.com/nestjs/nest) imitation [Cnode](htt
 
 Currently runs with:
 
-- nodejs v8.11.1
-- mongodb v3.4.1
-- redis v3.2.1
-- nestjs v5.1.0
-- express v4.16.3
+* nodejs v8.11.1
+* mongodb v3.4.1
+* redis v3.2.1
+* nestjs v5.1.0
+* express v4.16.3
 
 With this sample, you can :
 
-- Understand basic use of Nestjs, and store data with mongodb and redis
-- Use Nestjs with passport for authentication and third-party login Github
+* Understand basic use of Nestjs, and store data with mongodb and redis
+* Use Nestjs with passport for authentication and third-party login Github
 
 ## Getting Started
 
 Environment Dependencies:
 
-- [nodejs](http://nodejs.cn/)
-- [mongodb](https://www.mongodb.com/)
-- [redis](https://redis.io/)
+* [nodejs](http://nodejs.cn/)
+* [mongodb](https://www.mongodb.com/)
+* [redis](https://redis.io/)
 
 Clone this repository locally :
 
-``` bash
+```bash
 git clone https://github.com/jiayisheji/nest-cnode.git
 ```
 
 Install dependencies with npm :
 
-``` bash
+```bash
 npm install
 ```
 
@@ -50,7 +51,7 @@ For that, if you just create a file named .env in the directory and set the valu
 
 .env file
 
-````bash
+```bash
 #
 # config
 #
@@ -104,7 +105,7 @@ MONGO_PORT=27017
 MONGO_USER="cnode_admin"
 MONGO_PASS="123456"
 MONGO_DBS="db_cnode"
-````
+```
 
 ## Running the app
 
@@ -138,37 +139,38 @@ Dependencies are managed through package.json. In that file you'll find two sect
 
 ### dependencies
 
-Package | Description
----|---
-bcryptjs | Library for hashing and salting user passwords
-dotenv | Loads environment variables from .env file
-ejs-mate | Ejs template engine for Express
-ioredis | Redis ODM
-mongoose | MongoDB ODM
-nodemailer | Node.js library for sending emails
-passport | Simple and elegant authentication library for node.js
-passport-local | Sign-in with Username and Password plugin
-passport-github | Sign-in with Github plugin
-typescript | JavaScript compiler/type checker that boosts JavaScript productivity
+| Package         | Description                                                          |
+| --------------- | -------------------------------------------------------------------- |
+| bcryptjs        | Library for hashing and salting user passwords                       |
+| dotenv          | Loads environment variables from .env file                           |
+| ejs-mate        | Ejs template engine for Express                                      |
+| ioredis         | Redis ODM                                                            |
+| mongoose        | MongoDB ODM                                                          |
+| nodemailer      | Node.js library for sending emails                                   |
+| passport        | Simple and elegant authentication library for node.js                |
+| passport-local  | Sign-in with Username and Password plugin                            |
+| passport-github | Sign-in with Github plugin                                           |
+| typescript      | JavaScript compiler/type checker that boosts JavaScript productivity |
 
 ### devDependencies
 
-Package | Description
----|---
-@types | Dependencies in this folder are .d.ts files used to provide types
-cross-env | Cross platform setting of environment scripts
-jest | Testing library for JavaScript
-nodemon | Utility that automatically restarts node process when it crashes
-supertest | HTTP assertion library
-ts-jest | A preprocessor with sourcemap support to help use TypeScript wit Jest
-ts-node | Enables directly running TS files. Used to run copy-static-assets.ts
-tslint | Linter (similar to ESLint) for TypeScript files
+| Package   | Description                                                           |
+| --------- | --------------------------------------------------------------------- |
+| @types    | Dependencies in this folder are .d.ts files used to provide types     |
+| cross-env | Cross platform setting of environment scripts                         |
+| jest      | Testing library for JavaScript                                        |
+| nodemon   | Utility that automatically restarts node process when it crashes      |
+| supertest | HTTP assertion library                                                |
+| ts-jest   | A preprocessor with sourcemap support to help use TypeScript wit Jest |
+| ts-node   | Enables directly running TS files. Used to run copy-static-assets.ts  |
+| tslint    | Linter (similar to ESLint) for TypeScript files                       |
 
 ## Reference
 
-1. Awesome Nest
- - [https://github.com/juliandavidmr/awesome-nest](https://github.com/juliandavidmr/awesome-nest)
-2. NestJS Samples
- - [https://github.com/nestjs/nest/tree/master/sample](https://github.com/nestjs/nest/tree/master/sample)
+1.  Awesome Nest
 
- 
+* [https://github.com/juliandavidmr/awesome-nest](https://github.com/juliandavidmr/awesome-nest)
+
+2.  NestJS Samples
+
+* [https://github.com/nestjs/nest/tree/master/sample](https://github.com/nestjs/nest/tree/master/sample)
