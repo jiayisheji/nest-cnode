@@ -5,14 +5,14 @@ import { Model } from 'mongoose';
 import { User } from './user.interface';
 
 @Injectable()
-export class UserService extends BaseService<User> {
+export class UserDbService extends BaseService<User> {
     constructor(
         @InjectModel('User') private readonly userModel: Model<User>,
     ) {
         super(userModel);
     }
 
-    async create(docs: any): Promise<User>{
+    async create(docs: any): Promise<User> {
         docs.name = docs.loginname;
         const user = await super.create(docs);
         return user.save();
@@ -23,7 +23,7 @@ export class UserService extends BaseService<User> {
     * @param {String} email 邮箱地址
     * @return {Promise[user]} 承载用户的 Promise 对象
     */
-    async getUserByMail(email: string): Promise<User>{
+    async getUserByMail(email: string): Promise<User> {
         return this.findOne({ email });
     }
 

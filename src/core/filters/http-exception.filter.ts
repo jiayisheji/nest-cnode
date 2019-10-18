@@ -6,7 +6,6 @@ import { VALIDATOR_FILTER } from '../constants/validator-filter.constants';
 import { ValidatorFilterContext } from 'core';
 import { ViewsPath } from 'core';
 import { TRequest, TResponse } from '../../shared/interfaces/express';
-const passport = ['/login'];
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
