@@ -22,20 +22,20 @@
     <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss" />
     <link
       rel="icon"
-      href="/public/images/cnode_icon_32.png"
+      href="/assets/images/cnode_icon_32.png"
       type="image/x-icon"
     />
     <!-- style -->
-    <%- Loader('/public/stylesheets/index.min.css')
-    .css('/public/libs/bootstrap/css/bootstrap.css')
-    .css('/public/stylesheets/common.css')
-    .css('/public/stylesheets/style.less')
-    .css('/public/stylesheets/responsive.css')
-    .css('/public/stylesheets/jquery.atwho.css')
-    .css('/public/libs/editor/editor.css')
-    .css('/public/libs/webuploader/webuploader.css')
-    .css('/public/libs/code-prettify/prettify.css')
-    .css('/public/libs/font-awesome/css/font-awesome.css') .done(assets,
+    <%- Loader('/assets/stylesheets/index.min.css')
+    .css('/assets/libs/bootstrap/css/bootstrap.css')
+    .css('/assets/stylesheets/common.css')
+    .css('/assets/stylesheets/style.less')
+    .css('/assets/stylesheets/responsive.css')
+    .css('/assets/stylesheets/jquery.atwho.css')
+    .css('/assets/libs/editor/editor.css')
+    .css('/assets/libs/webuploader/webuploader.css')
+    .css('/assets/libs/code-prettify/prettify.css')
+    .css('/assets/libs/font-awesome/css/font-awesome.css') .done(assets,
     config.site_static_host, config.mini_assets) %>
     <!-- append style -->
     <%- block("styles").toString() %>
@@ -46,7 +46,7 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/">
-            <img src="/public/images/cnodejs_light.svg" />
+            <img src="/assets/images/cnodejs_light.svg" />
           </a>
           <form id="search_form" class="navbar-search" action="/search">
             <input
@@ -164,13 +164,13 @@
     <div id="backtotop">回到顶部</div>
     <div id="sidebar-mask"></div>
     <!-- scripts -->
-    <%- Loader('/public/index.min.js') .js('/public/libs/jquery-2.1.0.js')
-    .js('/public/libs/lodash.compat.js') .js('/public/libs/jquery-ujs.js')
-    .js('/public/libs/bootstrap/js/bootstrap.js')
-    .js('/public/libs/jquery.caret.js') .js('/public/libs/jquery.atwho.js')
-    .js('/public/libs/markdownit.js')
-    .js('/public/libs/code-prettify/prettify.js') .js('/public/libs/qrcode.js')
-    .js('/public/javascripts/main.js') .js('/public/javascripts/responsive.js')
+    <%- Loader('/assets/index.min.js') .js('/assets/libs/jquery-2.1.0.js')
+    .js('/assets/libs/lodash.compat.js') .js('/assets/libs/jquery-ujs.js')
+    .js('/assets/libs/bootstrap/js/bootstrap.js')
+    .js('/assets/libs/jquery.caret.js') .js('/assets/libs/jquery.atwho.js')
+    .js('/assets/libs/markdownit.js')
+    .js('/assets/libs/code-prettify/prettify.js') .js('/assets/libs/qrcode.js')
+    .js('/assets/javascripts/main.js') .js('/assets/javascripts/responsive.js')
     .done(assets, config.site_static_host, config.mini_assets) %>
     <!-- append scripts -->
     <%- block("scripts").toString() %>
