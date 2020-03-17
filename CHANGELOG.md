@@ -1,6 +1,14 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.0.2](https://github.com/jiayisheji/nest-cnode/compare/v0.3.0...v0.0.2) (2020-03-17)
+
+
+### Features
+
+* **feature:** 新增topic模块，topic-db模块，发布话题模板 ([8f7826a](https://github.com/jiayisheji/nest-cnode/commit/8f7826a46aa9cc8bee9766baf9430374c3f9ba38))
+* 新增vscode-commitizen提示配置和vscode插件推荐 ([0c12a23](https://github.com/jiayisheji/nest-cnode/commit/0c12a2390d0c0b9be02aa7f73dce06557512bb5b))
 
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/jiayisheji/nest-cnode/compare/v0.2.0...v0.3.0) (2019-06-20)
