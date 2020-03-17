@@ -55,10 +55,11 @@ module.exports = {
   ],
   // 自定义scopes
   scopes: [
-    { name: 'config' },
+    { name: 'assets' },
+    { name: 'controllers' },
     { name: 'core' },
-    { name: 'feature' },
-    { name: 'public' },
+    { name: 'deps' },
+    { name: 'models' },
     { name: 'shared' },
     { name: 'tools' },
     { name: 'views' },
