@@ -1,10 +1,12 @@
 import { Controller, Get, Render, Post, Body, Query, UseGuards, Logger, Req, Res, All } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
-import { ViewsPath } from '../../core';
-import { TRequest, TResponse, User } from '../../shared';
 import { RegisterDto, AccountDto } from './dto';
 import { AuthService } from './auth.service';
-import { ConfigService } from 'core/config';
+import { ConfigService } from '@nestjs/config';
+import { ViewsPath } from 'src/core/enums';
+import { UserEntity } from 'src/models';
+import { GitHubProfile } from './passport/github.strategy';
 
 @Controller()
 export class AuthController {
@@ -35,16 +37,16 @@ export class AuthController {
     /** 登录模板 */
     @Get('/login')
     @Render(ViewsPath.Login)
-    async loginView(@Req() req: TRequest) {
+    async loginView(@Req() req: Request) {
         const error: string = req.flash('loginError')[0];
         return { pageTitle: '登录', error };
     }
     /** 本地登录提交 */
     @Post('/login')
     @UseGuards(AuthGuard('local'))
-    async passportLocal(@Req() req: TRequest, @Res() res: TResponse) {
-        this.logger.log(JSON.stringify(req.user));
-        this.verifyLogin(req, res, req.user);
+    async passportLocal(@Req() req: Request, @Res() res: Response) {
+        // this.logger.log(JSON.stringify(req.user));
+        this.verifyLogin(req, res, req.user as UserEntity);
     }
     /** github登录提交 */
     @Get('/github')
@@ -54,17 +56,17 @@ export class AuthController {
     }
 
     @Get('/github/callback')
-    async githubCallback(@Req() req: TRequest, @Res() res: TResponse) {
+    async githubCallback(@Req() req: Request, @Res() res: Response) {
         this.logger.log(JSON.stringify(req.user));
-        const existUser = await this.authService.github(req.user);
+        const existUser = await this.authService.github(req.user as GitHubProfile);
         this.verifyLogin(req, res, existUser);
     }
 
     /** 登出 */
     @All('/logout')
-    async logout(@Req() req: TRequest, @Res() res: TResponse) {
+    async logout(@Req() req: Request, @Res() res: Response) {
         // 销毁 session
-        req.session.destroy();
+        req.session.destroy(null);
         // 清除 cookie
         res.clearCookie(this.cookie, { path: '/' });
         // 调用 passport 的 logout方法
@@ -74,9 +76,9 @@ export class AuthController {
     }
 
     /** 验证登录 */
-    private verifyLogin(@Req() req: TRequest, @Res() res: TResponse, user: User) {
+    private verifyLogin(@Req() req: Request, @Res() res: Response, user: UserEntity) {
         // id 存入 Cookie, 用于验证过期.
-        const auth_token = user._id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
+        const auth_token = user.id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
         // 配置 Cookie
         const opts = {
             path: '/',

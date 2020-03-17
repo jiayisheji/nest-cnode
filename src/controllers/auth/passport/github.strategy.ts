@@ -1,8 +1,8 @@
 import { Strategy } from 'passport-github';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from 'core/config';
-import { GithubConfig } from 'config/github';
+import { ConfigService } from '@nestjs/config';
+import { GithubConfig } from 'src/core/config';
 
 export interface GitHubProfile {
     id: string;

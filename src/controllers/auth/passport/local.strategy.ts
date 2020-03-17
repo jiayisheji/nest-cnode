@@ -13,7 +13,6 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
         });
     }
 
-    // tslint:disable-next-line:ban-types
     async validate(username: string, password: string, done: Function) {
         await this.authService.local(username, password)
             .then(user => done(null, user))

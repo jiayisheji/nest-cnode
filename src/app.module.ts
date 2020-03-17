@@ -1,14 +1,13 @@
 import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FeatureModule } from './feature/feature.module';
-import { CoreModule } from './core/core.module';
-import { CurrentUserMiddleware, LocalsMiddleware } from './core/middlewares';
+import { CoreModule, CurrentUserMiddleware, LocalsMiddleware } from './core';
+import { AuthModule } from './controllers';
 
 @Module({
   imports: [
     CoreModule,
-    FeatureModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

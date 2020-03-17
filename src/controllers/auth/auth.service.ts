@@ -1,31 +1,22 @@
 import { Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { hashSync, compareSync } from 'bcryptjs';
-import * as utility from 'utility';
-import { UserDbService } from '../../shared';
 import { RegisterDto, AccountDto } from './dto';
 import { APP_CONFIG } from '../../core';
-import { MailService } from '../../shared/services/mail.services';
 import { Validator } from 'class-validator';
 import { GitHubProfile } from './passport/github.strategy';
-import { ConfigService } from 'core/config';
-
+import { ConfigService } from '@nestjs/config';
+import { UserRepository } from 'src/models';
+import { encryptMD5, diffEncryptMD5 } from 'src/shared/utils';
+import { MailService } from 'src/shared/services/mail.services';
 // Validation methods
 const validator = new Validator();
-
-function encryptMD5(key: string): string {
-    return utility.md5(key);
-}
-
-function diffEncryptMD5(source: string, target: string): boolean {
-    return encryptMD5(source) === target;
-}
 
 @Injectable()
 export class AuthService {
     private readonly logger = new Logger(AuthService.name, true);
     private readonly secret: string = this.config.get('express.secret');
     constructor(
-        private readonly userDbService: UserDbService,
+        private readonly userRepository: UserRepository,
         private readonly config: ConfigService,
         private readonly mailService: MailService,
     ) { }
@@ -34,7 +25,7 @@ export class AuthService {
     async register(register: RegisterDto) {
         const { loginname, email } = register;
         // 检查用户是否存在，查询登录名和邮箱
-        const exist = await this.userDbService.count({
+        const exist = await this.userRepository.count({
             $or: [
                 { loginname },
                 { email },
@@ -52,7 +43,7 @@ export class AuthService {
         const passhash = hashSync(register.pass, 10);
         // 保存用户到数据库
         try {
-            await this.userDbService.create({ loginname, email, pass: passhash });
+            await this.userRepository.create({ loginname, email, pass: passhash });
 
             const token = encryptMD5(email + passhash + this.secret);
             this.mailService.sendActiveMail(email, token, loginname);
@@ -67,7 +58,7 @@ export class AuthService {
 
     /** 激活账户 */
     async activeAccount({ name, key }: AccountDto) {
-        const user = await this.userDbService.findOne({
+        const user = await this.userRepository.findOne({
             loginname: name,
         });
         // 检查用户是否存在
@@ -90,7 +81,7 @@ export class AuthService {
     }
 
     /** 本地登录 */
-    async local(username: string, password: string) {
+    async local(username = '', password = '') {
         // 处理用户名和密码前后空格，用户名全部小写 保证和注册一致
         username = username.trim().toLowerCase();
         password = password.trim();
@@ -116,9 +107,9 @@ export class AuthService {
         const getUser = (name: string) => {
             // 如果输入账号里面有@，表示是邮箱
             if (name.indexOf('@') > 0) {
-                return this.userDbService.getUserByMail(name);
+                return this.userRepository.getUserByMail(name, true);
             }
-            return this.userDbService.getUserByLoginName(name);
+            return this.userRepository.getUserByLoginName(name, true);
         };
         const user = await getUser(username);
         // 检查用户是否存在
@@ -149,11 +140,11 @@ export class AuthService {
         // 获取用户的邮箱
         const email = profile.emails && profile.emails[0] && profile.emails[0].value;
         // 根据 githubId 查找用户
-        let existUser = await this.userDbService.getUserByGithubId(profile.id);
+        let existUser = await this.userRepository.getUserByGithubId(profile.id);
 
         // 用户不存在则创建
         if (!existUser) {
-            existUser = new this.userDbService.getMode();
+            existUser = this.userRepository.createModel();
             existUser.githubId = profile.id;
             existUser.active = true;
             existUser.accessToken = profile.accessToken;
@@ -168,12 +159,12 @@ export class AuthService {
 
         // 保存用户到数据库
         try {
-            await existUser.save();
+            await this.userRepository.updateAsync(existUser.id, existUser);
             // 返回用户
             return existUser;
         } catch (error) {
             // 获取MongoError错误信息
-            const errmsg = error.errmsg || '';
+            const { errmsg = '' } = error;
             // 处理邮箱和用户名重复问题
             if (errmsg.indexOf('duplicate key error') > -1) {
                 if (errmsg.indexOf('email') > -1) {
