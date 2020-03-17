@@ -1,40 +1,9 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
-import { Response, Request, NextFunction } from 'express';
 import 'reflect-metadata';
 import { ValidationError } from 'class-validator';
 import { VALIDATOR_FILTER } from '../constants/validator-filter.constants';
-import { ValidatorFilterContext } from 'core';
-import { ViewsPath } from 'core';
-import { TRequest, TResponse } from '../../shared/interfaces/express';
-
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
-    catch(exception: HttpException, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response: TResponse  = ctx.getResponse();
-        const request: TRequest = ctx.getRequest();
-        const status = exception.getStatus();
-        switch (status) {
-            case HttpStatus.BAD_REQUEST: // 如果错误码 400
-                const render = validationErrorMessage(exception.message.message);
-                response.render(render.view, render.locals);
-                break;
-            case HttpStatus.UNAUTHORIZED: // 如果错误码 401
-                request.flash('loginError', exception.message.message || '信息不全。');
-                response.redirect('/login');
-                break;
-            default:
-                response
-                    .status(status)
-                    .json({
-                        statusCode: status,
-                        timestamp: new Date().toISOString(),
-                        path: request.url,
-                    });
-                break;
-        }
-    }
-}
+import { ValidatorFilterContext } from '../decorators/validator-filter.decorators';
+import { Request, Response } from 'express';
 
 interface Render {
     view: string;
@@ -44,7 +13,7 @@ interface Render {
     };
 }
 
-function validationErrorMessage(messages: ValidationError[]): Render {
+const validationErrorMessage = (messages: ValidationError[]): Render => {
     const message: ValidationError = messages[0];
     const metadata: ValidatorFilterContext = Reflect.getMetadata(VALIDATOR_FILTER, message.target.constructor);
     if (!metadata) {
@@ -81,4 +50,34 @@ function validationErrorMessage(messages: ValidationError[]): Render {
             ...locals,
         },
     };
+}
+
+@Catch(HttpException)
+export class HttpExceptionFilter implements ExceptionFilter {
+    catch(exception: HttpException, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
+        const response: Response = ctx.getResponse();
+        const request: Request = ctx.getRequest();
+        const status = exception.getStatus();
+        switch (status) {
+            case HttpStatus.BAD_REQUEST: // 如果错误码 400
+                const render = validationErrorMessage(exception.message.message);
+                response.render(render.view, render.locals);
+                break;
+            case HttpStatus.UNAUTHORIZED: // 如果错误码 401
+                request.flash('loginError', exception.message.message || '信息不全。');
+                response.redirect('/login');
+                break;
+            default:
+                response
+                    .status(status)
+                    .json({
+                        statusCode: status,
+                        timestamp: new Date().toISOString(),
+                        path: request.url,
+                        message: exception.message.message
+                    });
+                break;
+        }
+    }
 }
