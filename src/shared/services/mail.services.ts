@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { MailerService } from '../../core/mailer';
-import { ConfigService } from 'core/config';
+import { ConfigService } from '@nestjs/config';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class MailService {
@@ -11,7 +11,7 @@ export class MailService {
         private readonly mailer: MailerService,
         private readonly configService: ConfigService,
     ) {
-        this.name = 'CNode技术社区';
+        this.name = this.configService.get('application.name');
         this.host = `${this.configService.get('HOST')}:${this.configService.get('PORT')}`;
         this.from = `${this.name} <${this.configService.get('MAIL_USER')}>`;
     }
@@ -30,7 +30,7 @@ export class MailService {
             <a href="${this.host}/active_account?key=${token}&name=${username}">激活链接</a>
             <p>若您没有在${name}填写过注册信息，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>
             <p>${name} 谨上。</p>`;
-        this.mailer.send({
+        return this.mailer.sendMail({
             from: this.from,
             to,
             subject,
@@ -52,13 +52,7 @@ export class MailService {
             <a href="${this.host}/reset_pass?key=${token}&name=${username}">重置密码链接</a>
             <p>若您没有在${name}填写过注册信息，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>
             <p>${name} 谨上。</p>`;
-        this.mailer.send({
-            from: this.from,
-            to,
-            subject,
-            html,
-        });
-        this.mailer.send({
+        return this.mailer.sendMail({
             from: this.from,
             to,
             subject,
