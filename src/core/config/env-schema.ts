@@ -24,6 +24,8 @@ export default Joi.object({
     QN_SECRET_KEY: string.empty('').default(''),
     QN_BUCKET: string.empty('').default(''),
     QN_UPLOAD_URL: string.empty('').default(''),
+    // 本地上传路径配置
+    UPLOAD_LOCATION: string.required(),
     // 邮箱配置验证
     MAIL_HOST: string.hostname().required(),
     MAIL_PORT: number.required(),

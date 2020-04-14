@@ -6,6 +6,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 
 import validationSchema from './config/env-schema';
 import loadConfig from './config/load-config';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
     imports: [
@@ -33,7 +34,8 @@ import loadConfig from './config/load-config';
             imports: [ConfigModule],
             useFactory: (configService: ConfigService) => configService.get('mailer'),
             inject: [ConfigService],
-        })
+        }),
+        MulterModule.register()
     ],
 })
 export class CoreModule {

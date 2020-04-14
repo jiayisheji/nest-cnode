@@ -12,24 +12,23 @@ This is using the [Nestjs](https://github.com/nestjs/nest) imitation [Cnode](htt
 
 Currently runs with:
 
-* nodejs v8.11.1
-* mongodb v3.4.1
-* redis v3.2.1
-* nestjs v5.1.0
-* express v4.16.3
+- nodejs v8.11.1
+- mongodb v3.4.1
+- redis v3.2.1
+- nestjs v6.11.11
 
 With this sample, you can :
 
-* Understand basic use of Nestjs, and store data with mongodb and redis
-* Use Nestjs with passport for authentication and third-party login Github
+- Understand basic use of Nestjs, and store data with mongodb and redis
+- Use Nestjs with passport for authentication and third-party login Github
 
 ## Getting Started
 
 Environment Dependencies:
 
-* [nodejs](http://nodejs.cn/)
-* [mongodb](https://www.mongodb.com/)
-* [redis](https://redis.io/)
+- [nodejs](http://nodejs.cn/)
+- [mongodb](https://www.mongodb.com/)
+- [redis](https://redis.io/)
 
 Clone this repository locally :
 
@@ -78,6 +77,12 @@ QN_BUCKET='your bucket name'
 # 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
 # 如果在国内，此项请留空
 QN_UPLOAD_URL=''
+
+#
+# Multer upload dest
+#
+# 开发上传的src 生成上传dist
+UPLOAD_LOCATION='src'
 
 #
 # mail
@@ -169,8 +174,8 @@ Dependencies are managed through package.json. In that file you'll find two sect
 
 1.  Awesome Nest
 
-* [https://github.com/juliandavidmr/awesome-nest](https://github.com/juliandavidmr/awesome-nest)
+- [https://github.com/juliandavidmr/awesome-nest](https://github.com/juliandavidmr/awesome-nest)
 
 2.  NestJS Samples
 
-* [https://github.com/nestjs/nest/tree/master/sample](https://github.com/nestjs/nest/tree/master/sample)
+- [https://github.com/nestjs/nest/tree/master/sample](https://github.com/nestjs/nest/tree/master/sample)
