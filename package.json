@@ -89,7 +89,7 @@
     "jest": "^24.9.0",
     "lint-staged": "^10.0.8",
     "prettier": "^1.18.2",
-    "standard-version": "^7.1.0",
+    "standard-version": "^8.0.1",
     "supertest": "^4.0.2",
     "ts-jest": "25.2.0",
     "ts-loader": "^6.2.1",
