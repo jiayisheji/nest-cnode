@@ -1,3 +1,27 @@
 {
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.tslint": true,
+    "source.organizeImports": true
+  },
+  "editor.snippetSuggestions": "top",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.autoIndent": "full",
+  "editor.codeLens": false,
+  "editor.fontLigatures": true,
+  "editor.formatOnType": false,
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "emmet.triggerExpansionOnTab": true,
+  "explorer.sortOrder": "type",
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "nestjs"
+  ]
 }

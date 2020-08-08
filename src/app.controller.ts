@@ -1,17 +1,16 @@
-import { Controller, Get, Render, Res } from '@nestjs/common';
+import { Controller, Get, Query, Render } from '@nestjs/common';
+import { HomeDto } from './app-home.dto';
 import { AppService } from './app.service';
-import { Request, Response, NextFunction } from 'express';
-
-import { ViewsPath } from 'src/core/enums';
+import { ViewsPath } from './core';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Render('index')
-  getHello(): {} {
-    // console.log(res);
+  @Render(ViewsPath.Home)
+  async getHome(@Query() query: HomeDto) {
+    // return await this.appService.getHome(query);
     return {};
   }
 }

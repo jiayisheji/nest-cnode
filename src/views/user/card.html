@@ -22,7 +22,8 @@
     <div class="space clearfix"></div>
     <span class="signature">
       “ <% if (current_user.signature) {%>
-      <%-helper.escapeSignature(current_user.signature)%> <%} else {%>
+      <%- helper.escapeSignature(current_user.signature) %> 
+      <%} else {%>
       这家伙很懒，什么个性签名都没有留下。 <%}%> ”
     </span>
   </div>

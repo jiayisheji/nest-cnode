@@ -21,7 +21,7 @@ module.exports = {
         'assets',
         'controllers',
         'core',
-        'deps',
+        'deps-dev',
         'models',
         'shared',
         'tools',

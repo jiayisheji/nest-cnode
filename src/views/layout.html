@@ -39,6 +39,15 @@
     config.site_static_host, config.mini_assets) %>
     <!-- append style -->
     <%- block("styles").toString() %>
+    <!-- scripts -->
+    <%- Loader('/assets/index.min.js').js('/assets/libs/jquery-2.1.0.js')
+    .js('/assets/libs/lodash.compat.js').js('/assets/libs/jquery-ujs.js')
+    .js('/assets/libs/bootstrap/js/bootstrap.js')
+    .js('/assets/libs/jquery.caret.js').js('/assets/libs/jquery.atwho.js')
+    .js('/assets/libs/markdownit.js')
+    .js('/assets/libs/code-prettify/prettify.js').js('/assets/libs/qrcode.js')
+    .js('/assets/javascripts/main.js').js('/assets/javascripts/responsive.js')
+    .done(assets, config.site_static_host, config.mini_assets) %>
   </head>
 
   <body>
@@ -61,7 +70,7 @@
             <li><a href="/">首页</a></li>
             <% if (current_user){ %>
             <li>
-              <a href="/my/messages">
+              <a href="/messages">
                 <% if (current_user.messages_count) { %>
                 <span class="big messages_count"
                   ><%= current_user.messages_count %></span
@@ -163,15 +172,6 @@
     </footer>
     <div id="backtotop">回到顶部</div>
     <div id="sidebar-mask"></div>
-    <!-- scripts -->
-    <%- Loader('/assets/index.min.js') .js('/assets/libs/jquery-2.1.0.js')
-    .js('/assets/libs/lodash.compat.js') .js('/assets/libs/jquery-ujs.js')
-    .js('/assets/libs/bootstrap/js/bootstrap.js')
-    .js('/assets/libs/jquery.caret.js') .js('/assets/libs/jquery.atwho.js')
-    .js('/assets/libs/markdownit.js')
-    .js('/assets/libs/code-prettify/prettify.js') .js('/assets/libs/qrcode.js')
-    .js('/assets/javascripts/main.js') .js('/assets/javascripts/responsive.js')
-    .done(assets, config.site_static_host, config.mini_assets) %>
     <!-- append scripts -->
     <%- block("scripts").toString() %>
   </body>

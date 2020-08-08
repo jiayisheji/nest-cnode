@@ -1,14 +1,26 @@
-import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import {
+  AuthModule,
+  MessageModule,
+  ReplyModule,
+  TopicModule,
+  UploadModule,
+} from './controllers';
 import { CoreModule, CurrentUserMiddleware, LocalsMiddleware } from './core';
-import { AuthModule, UploadModule } from './controllers';
+import { TopicModelModule, UserModelModule } from './models';
 
 @Module({
   imports: [
     CoreModule,
     AuthModule,
     UploadModule,
+    TopicModule,
+    TopicModelModule,
+    UserModelModule,
+    ReplyModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

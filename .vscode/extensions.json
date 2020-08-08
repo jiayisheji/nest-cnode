@@ -1,13 +1,10 @@
 {
   "recommendations": [
-    "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "streetsidesoftware.code-spell-checker",
     "eamodio.gitlens",
-    "hex-ci.stylelint-plus",
     "mkaufman.htmlhint",
-    "knisterpeter.vscode-commitizen",
-    "vscode-icons-team.vscode-icons"
+    "knisterpeter.vscode-commitizen"
   ]
 }

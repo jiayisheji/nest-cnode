@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  const windowHeight = $(window).height();
-  const $backtotop = $('#backtotop');
-  const top = windowHeight - $backtotop.height() - 200;
+  var windowHeight = $(window).height();
+  var $backtotop = $('#backtotop');
+  var top = windowHeight - $backtotop.height() - 200;
 
 
   function moveBacktotop() {
@@ -21,7 +21,7 @@ $(document).ready(function() {
     return false;
   });
   $(window).scroll(function() {
-    const windowHeight = $(window).scrollTop();
+    var windowHeight = $(window).scrollTop();
     if (windowHeight > 200) {
       $backtotop.fadeIn();
     } else {
@@ -46,8 +46,8 @@ $(document).ready(function() {
 
   // 广告的统计信息
   $('.sponsor_outlink').click(function() {
-    const $this = $(this);
-    const label = $this.data('label');
+    var $this = $(this);
+    var label = $this.data('label');
     ga('send', 'event', 'banner', 'click', label, 1.00, { nonInteraction: 1 });
   });
 });

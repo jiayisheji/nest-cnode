@@ -73,3 +73,38 @@
     <% } %>
   </div>
 </div>
+<!-- markdown editor -->
+<%- include('../include/editor.html') %>
+
+<% block('scripts').append(`
+<script>
+  (function () {
+    var editor = new Editor();
+    editor.render($('.editor')[0]);
+    // 版块选择的检查，必须选择
+    $('#create_topic_form').on('submit', function (e) {
+      var tabValue = $('#tab-value').val();
+      if (!tabValue) {
+        alert('必须选择一个版块！');
+        $('.submit_btn').button('reset');
+        $('.tab-selector').css('color', 'red');
+        return false;
+      }
+    });
+    // END 版块选择的检查，必须选择
+    // 选择招聘版块时，给出提示
+    $('#tab-value').on('change', function () {
+      var $this = $(this);
+      var value = $this.val();
+      var warnMsg = '';
+      if (value === 'job') {
+        warnMsg = '<strong>为避免被管理员删帖，发帖时请好好阅读<a href="http://cnodejs.org/topic/541ed2d05e28155f24676a12" target="_blank">《招聘帖规范》</a></strong>';
+      } else if (value === 'ask') {
+        warnMsg = '<strong>提问时，请遵循 <a href="https://gist.github.com/alsotang/f654af8b1fff220e63fcb44846423e6d" target="_blank">《提问的智慧》</a>中提及的要点，以便您更接收到高质量回复。</strong>'
+      }
+      $('#topic_create_warn').html(warnMsg);
+    });
+    // END 选择招聘版块时，给出提示
+  })();
+  </script>
+  `) %>

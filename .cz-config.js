@@ -58,7 +58,7 @@ module.exports = {
     { name: 'assets' },
     { name: 'controllers' },
     { name: 'core' },
-    { name: 'deps' },
+    { name: 'deps-dev' },
     { name: 'models' },
     { name: 'shared' },
     { name: 'tools' },
