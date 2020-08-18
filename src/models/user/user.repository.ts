@@ -29,7 +29,6 @@ export class UserRepository extends BaseRepository<User> {
    * 根据邮箱，查找用户
    * @param {String} email 邮箱地址
    * @param {Boolean} pass 启用密码
-   * @return {Promise[user]} 承载用户的 Promise 对象
    */
   async getUserByMail(email: string, pass: boolean) {
     let projection = null;
@@ -43,9 +42,8 @@ export class UserRepository extends BaseRepository<User> {
    * 根据登录名查找用户
    * @param {String} loginName 登录名
    * @param {Boolean} pass 启用密码
-   * @return {Promise[user]} 承载用户的 Promise 对象
    */
-  async getUserByLoginName(loginName: string, pass: boolean) {
+  async getUserByLoginName(loginName: string, pass?: boolean) {
     const query = { loginname: new RegExp('^' + loginName + '$', 'i') };
     let projection = null;
     if (pass) {

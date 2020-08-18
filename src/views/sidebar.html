@@ -82,68 +82,28 @@
       </a>
     </div>
   </div>
-
+  <% if (typeof no_reply_topics !== 'undefined') { %>
   <div class="panel">
     <div class="header">
       <span class="col_fade">无人回复的话题</span>
     </div>
     <div class="inner">
       <ul class="unstyled">
-        <li>
-          <div>
-            <a
-              class="dark topic_title"
-              href="/topic/5b84d3752a585e4e2f26ff5b"
-              title="每天阅读一个 npm 模块（3）- mimic-fn"
-              >每天阅读一个 npm 模块（3）- mimic-fn</a
-            >
-          </div>
-        </li>
-        <li>
-          <div>
-            <a
-              class="dark topic_title"
-              href="/topic/5b84b81efad9359e2e831261"
-              title="又到薅羊毛的时候了，阿里云服务器 2核4G 1M带宽 40G高效云盘，每天仅需6毛钱"
-              >又到薅羊毛的时候了，阿里云服务器 2核4G 1M带宽
-              40G高效云盘，每天仅需6毛钱</a
-            >
-          </div>
-        </li>
-        <li>
-          <div>
-            <a
-              class="dark topic_title"
-              href="/topic/5b83c6892a585e4e2f26ff3c"
-              title="sequelize，mysql，delete 语句删除报错（）"
-              >sequelize，mysql，delete 语句删除报错（）</a
-            >
-          </div>
-        </li>
-        <li>
-          <div>
-            <a
-              class="dark topic_title"
-              href="/topic/5b83ba7308d0b0fb2d8e6c4a"
-              title="想买服务器，组个队吧。1.5折！好便宜呀"
-              >想买服务器，组个队吧。1.5折！好便宜呀</a
-            >
-          </div>
-        </li>
-        <li>
-          <div>
-            <a
-              class="dark topic_title"
-              href="/topic/5b836befc52ad1482eb94214"
-              title="【权限】大家好，请教一个接口权限控制的问题"
-              >【权限】大家好，请教一个接口权限控制的问题</a
-            >
-          </div>
-        </li>
+        <% if (no_reply_topics.length > 0) { %>
+          <ul class="unstyled">
+            <% no_reply_topics.forEach(topic => { %>
+              <%- include('./topic/small.html', { topic }) %>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <p>无</p>
+          <% } %>
       </ul>
     </div>
   </div>
-
+  <% } %>
+  
+  <% if (typeof tops !== 'undefined') { %>
   <div class="panel">
     <div class="header">
       <span class="col_fade">积分榜</span> &nbsp;
@@ -151,51 +111,19 @@
     </div>
     <div class="inner">
       <ol>
-        <li>
-          <span class="top_score">21270</span>
-          <span class="user_name"><a href="/user/i5ting">i5ting</a></span>
-        </li>
-        <li>
-          <span class="top_score">15040</span>
-          <span class="user_name"><a href="/user/alsotang">alsotang</a></span>
-        </li>
-        <li>
-          <span class="top_score">9350</span>
-          <span class="user_name"><a href="/user/leapon">leapon</a></span>
-        </li>
-        <li>
-          <span class="top_score">8760</span>
-          <span class="user_name"
-            ><a href="/user/jiyinyiyong">jiyinyiyong</a></span
-          >
-        </li>
-        <li>
-          <span class="top_score">6995</span>
-          <span class="user_name"><a href="/user/yakczh">yakczh</a></span>
-        </li>
-        <li>
-          <span class="top_score">6615</span>
-          <span class="user_name"><a href="/user/im-here">im-here</a></span>
-        </li>
-        <li>
-          <span class="top_score">6545</span>
-          <span class="user_name"><a href="/user/atian25">atian25</a></span>
-        </li>
-        <li>
-          <span class="top_score">6025</span>
-          <span class="user_name"><a href="/user/DevinXian">DevinXian</a></span>
-        </li>
-        <li>
-          <span class="top_score">5320</span>
-          <span class="user_name"><a href="/user/magicdawn">magicdawn</a></span>
-        </li>
-        <li>
-          <span class="top_score">5065</span>
-          <span class="user_name"><a href="/user/chapgaga">chapgaga</a></span>
-        </li>
+        <% if (tops.length > 0) { %>
+          <ol>
+            <% tops.forEach(user => { %>
+            <%- include('user/top.html', { user }) %>
+            <% }) %>
+          </ol>
+          <% } else { %>
+          <p>无</p>
+          <% } %>
       </ol>
     </div>
   </div>
+  <% } %>
 
   <div class="panel">
     <div class="header">

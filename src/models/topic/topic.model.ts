@@ -2,7 +2,7 @@ import { index, prop } from '@typegoose/typegoose';
 import { Types } from 'mongoose';
 import { BaseModel, ObjectId } from '../base.model';
 
-@index({ create_at: -1, top: -1, last_reply_at: -1, author_id: 1 })
+@index({ created_at: -1, top: -1, last_reply_at: -1, author_id: 1 })
 export class Topic extends BaseModel {
   // 标题
   @prop({

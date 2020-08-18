@@ -2,7 +2,7 @@ import { index, prop } from '@typegoose/typegoose';
 import { Types } from 'mongoose';
 import { BaseModel, ObjectId } from '../base.model';
 
-@index({ master_id: 1, has_read: -1, create_at: -1 })
+@index({ master_id: 1, has_read: -1, created_at: -1 })
 export class Message extends BaseModel {
   // 类型
   @prop({

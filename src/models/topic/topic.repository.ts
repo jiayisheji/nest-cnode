@@ -6,6 +6,7 @@ import { BaseRepository } from '../base.repository';
 import { ReplyRepository } from '../reply';
 import { ModelPartial } from '../repository';
 import { UserRepository } from '../user';
+import { User } from '../user/user.model';
 import { Topic } from './topic.model';
 
 /**
@@ -61,7 +62,16 @@ export class TopicRepository extends BaseRepository<Topic> {
    * @param query 搜索关键词
    * @param opt 搜索选项
    */
-  async getTopicsByQuery(query, opt) {
+  async getTopicsByQuery(
+    query,
+    opt,
+  ): Promise<
+    DocumentType<
+      Topic & {
+        author: DocumentType<User>;
+      }
+    >[]
+  > {
     query.deleted = false;
     const topics = await this.find({}, {}, {});
 
@@ -104,5 +114,14 @@ export class TopicRepository extends BaseRepository<Topic> {
     }
     const opts = { new: true };
     return await this.update(id, update, opts);
+  }
+
+  /**
+   * for sitemap
+   */
+  getLimit5w() {
+    const query = { deleted: false };
+    const opts = { limit: 50000, sort: '-created_at' };
+    return this.find(query, '_id', opts);
   }
 }

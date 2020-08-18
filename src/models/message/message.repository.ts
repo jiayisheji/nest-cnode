@@ -98,7 +98,7 @@ export class MessageRepository extends BaseRepository<Message> {
    */
   async getReadMessagesByUserId(master_id: string) {
     return super.find({ master_id, has_read: true }, null, {
-      sort: '-create_at',
+      sort: '-created_at',
       limit: 20,
     });
   }
@@ -109,7 +109,7 @@ export class MessageRepository extends BaseRepository<Message> {
    */
   async getUnreadMessagesByUserId(master_id: string) {
     return super.find({ master_id, has_read: true }, null, {
-      sort: '-create_at',
+      sort: '-created_at',
       limit: 20,
     });
   }

@@ -75,7 +75,7 @@ export class ReplyRepository extends BaseRepository<Reply> {
    */
   async getRepliesByTopicId(topic_id: string) {
     let replies = await super.find({ topic_id, deleted: false }, null, {
-      sort: 'create_at',
+      sort: 'created_at',
     });
 
     if (replies.length === 0) {
@@ -110,5 +110,14 @@ export class ReplyRepository extends BaseRepository<Reply> {
     const query = { topic_id, deleted: false };
     const opts = { sort: { created_at: -1 }, limit: 1 };
     return await super.find(query, '_id', opts)[0];
+  }
+
+  getRepliesByAuthorId(author_id: string, opt = null) {
+    return this.find({ author_id }, {}, opt);
+  }
+
+  // 通过 author_id 获取回复总数
+  getCountByAuthorId(author_id: string) {
+    return this.count({ author_id });
   }
 }

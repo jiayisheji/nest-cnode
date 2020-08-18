@@ -10,9 +10,11 @@ import { Validator } from 'class-validator';
 import { UserRepository } from 'src/models';
 import { MailService } from 'src/shared/services/mail.services';
 import { diffEncryptMD5, encryptMD5 } from 'src/shared/utils';
+import { v4 as uuidv4 } from 'uuid';
 import { APP_CONFIG } from '../../core';
 import { AccountDto, RegisterDto } from './dto';
 import { GitHubProfile } from './passport/github.strategy';
+
 // Validation methods
 const validator = new Validator();
 
@@ -50,6 +52,7 @@ export class AuthService {
         email,
         pass: passhash,
         name: loginname,
+        accessToken: uuidv4(),
       });
 
       const token = encryptMD5(email + passhash + this.secret);

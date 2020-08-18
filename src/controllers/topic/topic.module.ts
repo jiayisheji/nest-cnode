@@ -11,9 +11,9 @@ import { TopicService } from './topic.service';
 @Module({
   imports: [
     TopicModelModule,
+    ReplyModelModule,
     UserModelModule,
     TopicCollectModelModule,
-    ReplyModelModule,
   ],
   providers: [TopicService],
   controllers: [TopicController],

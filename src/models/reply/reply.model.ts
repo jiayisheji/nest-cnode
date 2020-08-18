@@ -3,7 +3,7 @@ import { Schema, Types } from 'mongoose';
 import { AnyType } from 'src/shared';
 import { BaseModel, ObjectId } from '../base.model';
 
-@index({ topic_id: 1, author_id: 1, create_at: -1 })
+@index({ topic_id: 1, author_id: 1, created_at: -1 })
 export class Reply extends BaseModel {
   // 内容
   @prop({
