@@ -1,8 +1,0 @@
-<% if (topic.top) { %>
-<span class="put_top">置顶</span>
-<% } else if (topic.good) { %>
-<span class="put_good">精华</span>
-<% } else if (typeof tab !== 'undefined' && tab === 'all' &&
-helper.tabName(topic.tab)) { %>
-<span class="topiclist-tab"><%= helper.tabName(topic.tab) %></span>
-<% } %>

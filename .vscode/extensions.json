@@ -1,5 +1,9 @@
 {
   "recommendations": [
+    "angular.ng-template",
+    "nrwl.angular-console",
+    "firsttris.vscode-jest-runner",
+    "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "streetsidesoftware.code-spell-checker",
