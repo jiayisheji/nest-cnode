@@ -49,7 +49,7 @@
     "loader": "^2.1.1",
     "loader-builder": "^2.7.0",
     "loader-connect": "^1.0.1",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "moment": "^2.27.0",
     "mongoose": "^5.9.3",
     "nodemailer": "^6.4.4",
