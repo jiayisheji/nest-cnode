@@ -15,6 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@nest-cnode/client-app/*": ["apps/client/src/app/*"],
+      "@nest-cnode/client-env": ["apps/client/src/environments/environment.ts"],
       "@nest-cnode/server-config": ["libs/server-config/src/index.ts"],
       "@nest-cnode/server-model": ["libs/server-model/src/index.ts"]
     }
