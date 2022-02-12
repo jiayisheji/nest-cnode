@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nest-cnode/server-config": ["libs/server-config/src/index.ts"],
+      "@nest-cnode/server-model": ["libs/server-model/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "client": "apps/client",
+    "server-config": "libs/server-config",
+    "server-model": "libs/server-model"
+  }
 }
