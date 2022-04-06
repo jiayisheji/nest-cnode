@@ -5,19 +5,32 @@
   "targets": {
     "build": {
       "executor": "@nrwl/node:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/client",
         "main": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
-        "assets": ["apps/client/src/assets"]
+        "assets": [
+          "apps/client/src/assets"
+        ],
+        "webpackConfig": [
+          "apps/client/webpack.config.js"
+        ],
+        "generatePackageJson": true,
+        "externalDependencies": "all"
       },
       "configurations": {
         "production": {
           "optimization": true,
-          "extractLicenses": true,
+          "extractLicenses": false,
           "inspect": false,
           "fileReplacements": [
+            {
+              "replace": "apps/client/src/main.ts",
+              "with": "apps/client/src/main.prod.ts"
+            },
             {
               "replace": "apps/client/src/environments/environment.ts",
               "with": "apps/client/src/environments/environment.prod.ts"
@@ -34,14 +47,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/client/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/client/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/client"],
+      "outputs": [
+        "coverage/apps/client"
+      ],
       "options": {
         "jestConfig": "apps/client/jest.config.js",
         "passWithNoTests": true

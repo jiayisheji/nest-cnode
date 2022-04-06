@@ -7,6 +7,18 @@
         "useTabs": false,
         "tabWidth": 4
       }
+    },
+    {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.hbs",
+      "options": {
+        "singleQuote": false
+      }
     }
   ]
 }

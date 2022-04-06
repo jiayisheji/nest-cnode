@@ -18,6 +18,7 @@
   "emmet.triggerExpansionOnTab": true,
   "explorer.sortOrder": "type",
   "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

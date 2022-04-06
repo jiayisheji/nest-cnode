@@ -1,5 +1,4 @@
 import { databaseConfig, databaseSchema } from '@nest-cnode/server-config';
-import { DatabaseModule } from '@nest-cnode/server-model';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as joi from 'joi';
@@ -16,7 +15,7 @@ import * as joi from 'joi';
       envFilePath: ['.env'],
     }),
     // 数据库配置
-    DatabaseModule,
+    // DatabaseModule,
   ],
   providers: [],
 })

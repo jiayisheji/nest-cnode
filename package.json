@@ -7,7 +7,8 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "build-webpack:client-views": "webpack build --config ./apps/client/webpack/webpack.prod.config.js"
   },
   "private": true,
   "engines": {
@@ -35,6 +36,7 @@
     "handlebars-helpers": "^0.10.0",
     "handlebars-layouts": "^3.1.4",
     "hbs": "^4.2.0",
+    "hbs-utils": "0.0.4",
     "joi": "^17.6.0",
     "mongoose": "^6.2.1",
     "passport": "^0.5.2",
@@ -59,6 +61,7 @@
     "@nrwl/devkit": "13.4.3",
     "@nrwl/eslint-plugin-nx": "13.4.3",
     "@nrwl/jest": "13.4.3",
+    "@nrwl/js": "13.4.3",
     "@nrwl/linter": "13.4.3",
     "@nrwl/nest": "13.4.3",
     "@nrwl/node": "13.4.3",
@@ -71,8 +74,10 @@
     "@types/jest": "27.0.2",
     "@types/node": "14.14.33",
     "@types/passport-local": "^1.0.34",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "~5.3.0",
     "@typescript-eslint/parser": "~5.3.0",
+    "babel-jest": "27.2.3",
     "cypress": "^9.1.0",
     "eslint": "8.2.0",
     "eslint-config-prettier": "8.1.0",
@@ -83,7 +88,13 @@
     "jest-preset-angular": "11.0.0",
     "prettier": "^2.3.1",
     "reload": "^3.2.0",
+    "stylelint": "^14.6.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-scss": "^4.2.0",
     "ts-jest": "27.0.5",
-    "typescript": "~4.4.3"
+    "typescript": "~4.4.3",
+    "webpack-cli": "^4.9.2"
   }
 }
