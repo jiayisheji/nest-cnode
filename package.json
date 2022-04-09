@@ -50,7 +50,7 @@
     "loader-builder": "^2.7.0",
     "loader-connect": "^1.0.1",
     "markdown-it": "^11.0.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.3",
     "nodemailer": "^6.4.4",
     "nodemailer-smtp-transport": "^2.7.4",
