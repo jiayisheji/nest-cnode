@@ -1,0 +1,31 @@
+<h1>{{message}}</h1>
+
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h4>{{message}}</h4>
+<h5>{{message}}</h5>
+
+<img src="<%= require('../../common/images/ddd.png') %>" alt="" />
+
+{{!--style--}}
+{{#content "style" mode="append"}}
+<% for (var css in htmlWebpackPlugin.files.css) { %>
+<!--leaflet style-->
+<link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+<% } %>
+{{/content}}
+
+{{!--script--}}
+{{#content "script" mode="append"}}
+  <!--========== JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) ==========-->
+  <!--leaflet script-->
+  <!--inline manifest-->
+<% for (var js in htmlWebpackPlugin.files.js) { %>
+<script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+<% } %>
+<!--========== END JAVASCRIPTS ==========-->
+{{/content}}
