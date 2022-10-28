@@ -47,6 +47,23 @@
 
 [CNode](https://cnodejs.org) is a [Nestjs](https://github.com/nestjs/nest) boilerplate 🚀. A nestjs+hbs+webpack demo for server side renderer. A simple application demonstrating [Angular](https://github.com/angular/angular) the basic usage of dashboard with [NestJS](https://github.com/nestjs/nest) (JWT, Passport, Github, User, Role, Permission) based on [ngx-admin](https://github.com/akveo/ngx-admin) template.
 
+## Build with
+
+Describes which version of the main packages and main tools.
+
+| Name | Version |
+| --- | --- |
+| Nx | v15.x |
+| Angular | v14.x |
+| NestJs | v9.x |
+| NodeJs | v14.x |
+| Typescript | v4.x |
+| Mongoose | v6.x |
+| MongoDB | v5.x |
+| NPM | v6.x |
+| Docker | v20.x |
+| Docker Compose | v2.x |
+
 ## Prerequisites
 
 We assume that all people are coming to here is `Programmer with intermediate knowledge` and also we need to understanding more knowledge before we start to reduce knowledge gaps.

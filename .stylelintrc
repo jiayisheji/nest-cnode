@@ -1,0 +1,25 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-recommended-scss", "stylelint-config-prettier"],
+  "rules": {
+    "selector-class-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "selector-id-pattern": "j-[a-z]+",
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["ng-deep"]
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["host"]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": ["/^app-/", "/^router-/"]
+      }
+    ]
+  }
+}

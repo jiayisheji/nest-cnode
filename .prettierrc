@@ -1,11 +1,53 @@
 {
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 120,
+  "bracketSpacing": true,
   "singleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
   "overrides": [
     {
       "files": "*.yml",
       "options": {
         "useTabs": false,
         "tabWidth": 4
+      }
+    },
+    {
+      "files": ["*.json", ".babelrc"],
+      "options": {
+        "parser": "json-stringify"
+      }
+    },
+    {
+      "files": ["*.jsonc", "tsconfig*.json"],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": ["*.js", "*.cjs", "*.mjs"],
+      "options": {
+        "parser": "babel"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 140
+      }
+    },
+    {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false
       }
     }
   ]

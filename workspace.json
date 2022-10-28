@@ -4,5 +4,6 @@
     "client": "apps/client",
     "server-config": "libs/server-config",
     "server-model": "libs/server-model"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

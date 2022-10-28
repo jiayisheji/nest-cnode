@@ -1,3 +1,5 @@
+const scopes = require('./commit.scope.config');
+
 module.exports = {
   // 自定义types
   types: [
@@ -15,8 +17,7 @@ module.exports = {
     },
     {
       value: 'style',
-      name:
-        '不影响程序逻辑的代码修改(修改空白字符，格式缩进，补全缺失的分号等，没有改变代码逻辑)',
+      name: '不影响程序逻辑的代码修改(修改空白字符，格式缩进，补全缺失的分号等，没有改变代码逻辑)',
     },
     {
       value: 'refactor',
@@ -32,13 +33,11 @@ module.exports = {
     },
     {
       value: 'build',
-      name:
-        '主要目的是修改项目构建系统(例如 glup， webpack， rollup，npm的配置等.xxx) 的提交',
+      name: '主要目的是修改项目构建系统(例如 glup， webpack， rollup，npm的配置等.xxx) 的提交',
     },
     {
       value: 'ci',
-      name:
-        '主要目的是修改项目继续集成流程(例如 Travis， Jenkins， GitLab CI， Circle等) 的提交',
+      name: '主要目的是修改项目继续集成流程(例如 Travis， Jenkins， GitLab CI， Circle等) 的提交',
     },
     {
       value: 'chore',
@@ -54,16 +53,7 @@ module.exports = {
     },
   ],
   // 自定义scopes
-  scopes: [
-    { name: 'assets' },
-    { name: 'controllers' },
-    { name: 'core' },
-    { name: 'deps-dev' },
-    { name: 'models' },
-    { name: 'shared' },
-    { name: 'tools' },
-    { name: 'views' },
-  ],
+  scopes,
 
   allowTicketNumber: false,
   isTicketNumberRequired: false,
@@ -90,15 +80,14 @@ module.exports = {
     subject: '用简短的文字描述变更内容:',
     body: '提供更长的变更描述(可选)。使用“|”中断新行:',
     breaking: '列出任何中断更改(可选):',
-    footer:
-      '列出此更改所关闭的任何问题(可选)。例如:#31 #34。对应“package.json”文件里“bugs.url”',
+    footer: '列出此更改所关闭的任何问题(可选)。例如:#31 #34。对应“package.json”文件里“bugs.url”',
     confirmCommit: '你确定要继续执行上面的提交吗?',
   },
 
   allowCustomScopes: true,
   allowBreakingChanges: ['feat', 'fix'],
   // 跳过任何你想问的问题
-  skipQuestions: ['body'],
+  // skipQuestions: ['body'],
 
   // limit subject length
   subjectLimit: 100,
