@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "mvc-plugin",
+  "version": "0.0.1",
+  "generators": {
+    "mvc-view": {
+      "factory": "./src/generators/mvc-view/generator",
+      "schema": "./src/generators/mvc-view/schema.json",
+      "description": "mvc-views generator"
+    }
+  }
+}
