@@ -1,75 +1,52 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 
-  <head>
-    <meta charset="utf-8" />
-    {{#block "title"}}<title>{{title}}</title>{{/block}}
-    {{#block "keywords"}}<meta
-        name="keywords"
-        content="{{keywords}}"
-      />{{/block}}
-    {{#block "description"}}<meta
-        name="description"
-        content="{{description}}"
-      />{{/block}}
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="App-Config"
-      content="fullscreen=yes,useHistoryState=yes,transition=yes"
-    />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="yes" name="apple-touch-fullscreen" />
-    <meta content="telephone=no,email=no" name="format-detection" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
-    />
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<head>
+  <meta charset="utf-8">
+  {{#if keywords}}
+  <meta name="keywords" content="{{keywords}}">
+  {{else}}
+  <meta name="keywords" content="HTML5 Theme Nodejs Handlerbars Express Template">
+  {{/if}}
+  {{#if description}}
+  <meta name="description" content="{{description}}">
+  {{else}}
+  <meta name="description" content="description">
+  {{/if}}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="telephone=no,email=no" name="format-detection">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>{{title}}</title>
 
-    <link
-      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.5.2/animate.min.css"
-      rel="stylesheet"
-    />
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
-    {{!Vendor Styles (style here)}}
-    {{#block "style"}}{{/block}}
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/Swiper/3.3.1/css/swiper.min.css" rel="stylesheet">
 
-  </head>
+  {{!--Vendor Styles (style here)--}}
+  {{#block "style"}}{{/block}}
 
-  <body>
-    {{#block "header"}}{{/block}}
-    {{{body}}}
-    {{#block "footer"}}{{/block}}
+</head>
 
-    <% if (reload) { %>
-    <script src="/reload/reload.js"></script>
-    <% } %>
+<body>
 
-    <!-- vendor -->
-    <script
-      type="text/javascript"
-      src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.bootcdn.net/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"
-    ></script>
+  {{{body}}}
 
-    {{!manifest vendor common moduleNameChunk Styles (script here)}}
-    {{#block "script"}}{{/block}}
-  </body>
+  <!-- vendor -->
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+
+  {{!--manifest vendor common moduleNameChunk Styles (script here)--}}
+  {{#block "script"}}{{/block}}
+</body>
 
 </html>

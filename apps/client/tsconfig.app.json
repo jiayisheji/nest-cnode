@@ -5,8 +5,9 @@
     "module": "commonjs",
     "types": ["node"],
     "emitDecoratorMetadata": true,
-    "target": "es2018"
+    "resolveJsonModule": true,
+    "target": "es2015"
   },
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts", "webpack"],
   "include": ["**/*.ts"]
 }

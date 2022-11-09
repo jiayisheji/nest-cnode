@@ -1,48 +1,73 @@
 {
-  "root": "apps/client",
+  "name": "client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/client/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:build",
+      "executor": "@nest-cnode/mvc-plugin:build",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
+        "target": "node",
+        "compiler": "tsc",
         "outputPath": "dist/apps/client",
         "main": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
         "assets": [
           "apps/client/src/assets"
         ],
-        "webpackConfig": [
-          "apps/client/webpack.config.js"
-        ],
+        "webpackConfig": "apps/client/webpack.config.js",
         "generatePackageJson": true,
-        "externalDependencies": "all"
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "apps/client/src/views/shared/styles"
+          ]
+        },
+        "viewOptions": {
+          "webpackConfig": "apps/client/view-webpack.config.js",
+          "fileReplacements": [],
+          "assets": []
+        }
       },
       "configurations": {
         "production": {
           "optimization": true,
           "extractLicenses": false,
           "inspect": false,
+          "main": "apps/client/src/main.prod.ts",
           "fileReplacements": [
-            {
-              "replace": "apps/client/src/main.ts",
-              "with": "apps/client/src/main.prod.ts"
-            },
             {
               "replace": "apps/client/src/environments/environment.ts",
               "with": "apps/client/src/environments/environment.prod.ts"
             }
-          ]
+          ],
+          "viewOptions": {
+            "outputHashing": "all",
+            "webpackConfig": "apps/client/view-webpack.config.js",
+            "fileReplacements": [
+              {
+                "replace": "@shared",
+                "with": "apps/client/src/views/shared"
+              }
+            ],
+            "assets": [],
+            "sourceMap": false
+          }
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "client:build"
+        "buildTarget": "client:build",
+        "buildTargetOptions": {}
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "client:build:production"
+        }
       }
     },
     "lint": {
@@ -59,10 +84,10 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "coverage/apps/client"
+        "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "apps/client/jest.config.js",
+        "jestConfig": "apps/client/jest.config.ts",
         "passWithNoTests": true
       }
     }

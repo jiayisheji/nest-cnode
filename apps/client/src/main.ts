@@ -1,48 +1,37 @@
-import { Logger } from '@nestjs/common';
+/**
+ * This is not a production server yet!
+ * This is only a minimal backend to get started.
+ */
+import { mvcViewDevWebpack } from '@nest-cnode/mvc-plugin';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import * as chalk from 'chalk';
+import { ProjectConfiguration } from '@nrwl/devkit';
 import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
+import { debounce } from 'lodash-es';
 import { join } from 'path';
-import * as reload from 'reload';
-import * as webpack from 'webpack';
-import * as webpackDevConfig from '../webpack/webpack.dev.config';
+import * as project from '../project.json';
 import { Bootstrapping } from './bootstrapping';
 import { environment } from './environments/environment';
 
 new Bootstrapping()
-  .startup(async (app: NestExpressApplication) => {
-    reload(app.getHttpAdapter().getInstance())
-      .then((reloadServer: { reload: () => void }) => {
-        webpack(webpackDevConfig, (err?: Error) => {
-          // 配置出错，显示错误信息
-          if (err) {
-            console.error(chalk.red(`[Webpack ValidationError]`), err.message, err.stack);
-          }
-          reloadServer && reloadServer.reload();
-          console.log(chalk.yellow(`[ViewsRenderMiddleware]`), chalk.blue(` Browser refresh in progress...`));
-        });
-        hbsUtils(hbs).registerWatchedPartials(
-          join(__dirname, 'views'),
-          {
-            onchange() {
-              // Partials has changed!
-              console.log(`Partials has changed!`);
-              reloadServer && reloadServer.reload();
-            },
-          },
-          () => {
-            // The initial registration of partials is complete.
-            console.log(`The initial registration of partials is complete`);
-          }
-        );
-      })
-      .catch((err: unknown) => {
-        Logger.error(`NestCNode reload Run！Error: ${err}}`);
-      });
+  .startup(async (app: NestExpressApplication, useExpressMiddleware: (app: NestExpressApplication) => void) => {
+    useExpressMiddleware(app);
+
+    if (environment.production === false) {
+      const reloadServer = await mvcViewDevWebpack(app, project as unknown as ProjectConfiguration);
+      // register and watch partials
+      hbsUtils(hbs).registerWatchedPartials(
+        join(__dirname, 'views'),
+        {
+          onchange: debounce(function () {
+            reloadServer && reloadServer.reload();
+            console.log(`Partials refreshed success!`);
+          }, 100),
+        },
+        function () {
+          console.log(`The initial registration of partials is complete`);
+        }
+      );
+    }
   })
-  .catch(() => {
-    Logger.error(
-      `NestCNode Run！port at ${process.env.PORT}, env: ${environment.production ? 'production' : 'development'}`
-    );
-  });
+  .catch(console.error);
