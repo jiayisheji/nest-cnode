@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "client": "apps/client",
+    "mvc-plugin": "libs/mvc-plugin",
     "server-config": "libs/server-config",
     "server-model": "libs/server-model"
   },

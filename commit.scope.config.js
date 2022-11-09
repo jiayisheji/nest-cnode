@@ -26,13 +26,16 @@ const defaultScopes = [
 
 // 项目 Scopes
 const projectScopes = Object.entries(projects).reduce((arr, [key, value]) => {
-  return [
-    ...arr,
-    {
-      name: key,
-      readme: `/${value}`,
-    },
-  ];
+  if (!key.endsWith('-e2e')) {
+    return [
+      ...arr,
+      {
+        name: key,
+        readme: `/${value}`,
+      },
+    ];
+  }
+  return arr;
 }, []);
 
 module.exports = [...projectScopes, ...defaultScopes];
