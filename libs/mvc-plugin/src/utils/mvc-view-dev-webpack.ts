@@ -1,9 +1,18 @@
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { createExecutorContext } from '@nrwl/cypress/plugins/cypress-preset';
-import { ProjectConfiguration, readCachedProjectGraph, Workspaces } from '@nrwl/devkit';
+import {
+  ExecutorContext,
+  ProjectConfiguration,
+  ProjectGraph,
+  readCachedProjectGraph,
+  readNxJson,
+  TargetConfiguration,
+  workspaceRoot,
+  Workspaces,
+} from '@nrwl/devkit';
 import { getWebpackConfig } from '@nrwl/webpack/src/executors/webpack/lib/get-webpack-config';
 import { normalizeOptions } from '@nrwl/webpack/src/executors/webpack/lib/normalize-options';
 import { resolveCustomWebpackConfig } from '@nrwl/webpack/src/utils/webpack/custom-webpack';
+import { readProjectsConfigurationFromProjectGraph } from 'nx/src/project-graph/project-graph';
 import { combineOptionsForExecutor } from 'nx/src/utils/params';
 import * as reload from 'reload';
 import { Configuration, webpack } from 'webpack';
@@ -37,29 +46,57 @@ export async function mvcViewDevWebpack(app: NestExpressApplication, project: Pr
     })
   );
 
-  complier.hooks.done.tap('done', (stats) => {
-    const rawMessages = stats.toJson({
-      all: false,
-      warnings: true,
-      errors: true,
+  return new Promise<{ reload: () => void }>((resolve, reject) => {
+    complier.hooks.done.tap('done', (stats) => {
+      const rawMessages = stats.toJson({
+        all: false,
+        warnings: true,
+        errors: true,
+      });
+      const messages = formatWebpackMessages(rawMessages);
+      if (!messages.errors.length && !messages.warnings.length) {
+        console.log('Compiled successfully!');
+        reloadServer && reloadServer.reload();
+        resolve(reloadServer);
+      }
+      if (messages.errors.length) {
+        console.log('Failed to compile.');
+        messages.errors.forEach((e: string) => console.log(e));
+        reject(messages.errors);
+        return;
+      }
+      if (messages.warnings.length) {
+        console.log('Compiled with warnings.');
+        messages.warnings.forEach((w: string) => console.log(w));
+      }
     });
-    const messages = formatWebpackMessages(rawMessages);
-    if (!messages.errors.length && !messages.warnings.length) {
-      console.log('Compiled successfully!');
-      reloadServer && reloadServer.reload();
-    }
-    if (messages.errors.length) {
-      console.log('Failed to compile.');
-      messages.errors.forEach((e: string) => console.log(e));
-      return;
-    }
-    if (messages.warnings.length) {
-      console.log('Compiled with warnings.');
-      messages.warnings.forEach((w: string) => console.log(w));
-    }
   });
 
   return reloadServer;
+}
+
+function createExecutorContext(
+  graph: ProjectGraph,
+  targets: Record<string, TargetConfiguration>,
+  projectName: string,
+  targetName: string,
+  configurationName: string
+): ExecutorContext {
+  const projectConfigs = readProjectsConfigurationFromProjectGraph(graph);
+  return {
+    cwd: process.cwd(),
+    projectGraph: graph,
+    target: targets[targetName],
+    targetName,
+    configurationName,
+    root: workspaceRoot,
+    isVerbose: false,
+    projectName,
+    workspace: {
+      ...readNxJson(),
+      ...projectConfigs,
+    },
+  };
 }
 
 /**

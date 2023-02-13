@@ -27,7 +27,7 @@ export class Bootstrapping {
       bodyParser: true,
     });
 
-    // 启用 Express Middleware
+    // 启用 Nest Global(middleware、exception-filters、pipes、guards、interceptors)
     this.useNestGlobal(app);
 
     // 启用 Express Middleware
@@ -63,7 +63,6 @@ export class Bootstrapping {
     layouts.register(hbs.handlebars);
     // locals 变量作为模板数据
     hbs.localsAsTemplateData(app);
-    // app.useStaticAssets('.');
     // 注册静态资源路径和访问路径前缀
     app.useStaticAssets(join(__dirname));
     // 注册模板引擎路径

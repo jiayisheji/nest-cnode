@@ -8,7 +8,7 @@
     "ms-vscode.vscode-typescript-tslint-plugin",
     "streetsidesoftware.code-spell-checker",
     "eamodio.gitlens",
-    "mkaufman.htmlhint",
+    "HTMLHint.vscode-htmlhint",
     "knisterpeter.vscode-commitizen"
   ]
 }

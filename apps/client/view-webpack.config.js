@@ -26,7 +26,5 @@ module.exports = (webpackConfig, { options, context }) => {
   }
 
   webpackConfig.plugins.push(new HandlebarsRenderPlugin());
-
-  console.log('view-webpack.config', webpackConfig);
   return webpackConfig;
 };

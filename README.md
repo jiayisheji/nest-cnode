@@ -122,7 +122,7 @@ mongod --version
 # db version v5.0.4
 ```
 
-> Using [Docker](#Run-with-Docker) to install MongoDB is recommended
+> Using [Docker](#run-with-docker) to install MongoDB is recommended
 
 ### Clone this repository locally
 
@@ -151,6 +151,8 @@ For that, if you just create a file named `.env` in the directory and set the va
 ```bash
 // null
 ```
+
+> **NOTE**：Windows using `npm install -g windows-build-tools`.
 
 ### Run project
 
@@ -247,55 +249,38 @@ docker-compose up -d
 [stars-shield]: https://img.shields.io/github/stars/jiayisheji/nest-cnode?style=for-the-badge
 [issues-shield]: https://img.shields.io/github/issues/jiayisheji/nest-cnode?style=for-the-badge
 [license-shield]: https://img.shields.io/github/license/jiayisheji/nest-cnode?style=for-the-badge
-[github-shield]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
 [typescript-shield]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [mongodb-shield]: https://img.shields.io/badge/MongoDB-white?style=for-the-badge&logo=mongodb&logoColor=4EA94B
 [nodejs-shield]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 [jwt-shield]: https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white
-[aws-shield]: https://img.shields.io/badge/Amazon_AWS-{232F3E}?style=for-the-badge&logo=amazonaws&logoColor=white
-[kafka-shield]: https://img.shields.io/badge/kafka-0000?style=for-the-badge&logo=apachekafka&logoColor=black&color=white
 [jest-shield]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
 [docker-shield]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [nestjs-shield]: https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white
-[yarn-shield]: https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white
 [angular-shield]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
 
 <!-- GITHUB LINKS -->
 
-[repo-url]: https://github.com/jiayisheji/nest-cnode
 [license-url]: https://github.com/jiayisheji/nest-cnode/blob/main/LICENSE.md
 [issues-url]: https://github.com/jiayisheji/nest-cnode/issues
 [stars-url]: https://github.com/jiayisheji/nest-cnode/stargazers
 [forks-url]: https://github.com/jiayisheji/nest-cnode/network/members
 [contributors-url]: https://github.com/jiayisheji/nest-cnode/graphs/contributors
-[history-url]: https://github.com/jiayisheji/nest-cnode/commits/main
 
 <!-- NESTJS LINKS -->
 
 [nestjs-url]: http://nestjs.com/
-[nestjs-fundamental-url]: http://nestjs.com/
 
 <!-- ANGULAR LINKS -->
 
 [angular-url]: https://angular.io/
-[angular-fundamental-url]: https://angular.io/
 
 <!-- OTHER LINKS -->
 
 [nodejs-url]: https://nodejs.org/
-[bcrypt-url]: https://www.npmjs.com/package/bcrypt
 [expressjs-url]: https://expressjs.com
-[mongoose-url]: https://mongoosejs.com/
 [mongodb-url]: https://docs.mongodb.com/
-[passport-url]: https://github.com/jaredhanson/passport
-[class-transformer-url]: https://github.com/typestack/class-transformer
-[class-validation-url]: https://github.com/typestack/class-validator
-[yarn-url]: https://yarnpkg.com
 [typescript-url]: https://www.typescriptlang.org/
 [jwt-url]: https://jwt.io
-[mongodb-create-database-url]: https://www.mongodb.com/basics/create-database
-[kafka-url]: https://kafka.apache.org/quickstart
 [jest-url]: https://jestjs.io/docs/getting-started
-[husky-url]: https://docs.nestjs.com/microservices/kafka
 [docker-url]: https://docs.docker.com
 [docker-compose-url]: https://docs.docker.com/compose/
