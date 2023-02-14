@@ -18,8 +18,8 @@ describe('mvc-plugin generator', () => {
     await generator(appTree, options);
     expect(appTree.exists('apps/test/test/test.template.hbs')).toBeTruthy();
     expect(appTree.exists('apps/test/test/test.main.js')).toBeTruthy();
-    expect(appTree.exists('apps/test/test/test.module.scss')).toBeTruthy();
-    expect(appTree.read('apps/test/test/test.main.js', 'utf-8')).toMatch(`import './test.module.scss';`);
+    expect(appTree.exists('apps/test/test/test.scss')).toBeTruthy();
+    expect(appTree.read('apps/test/test/test.main.js', 'utf-8')).toMatch(`import './test.scss';`);
   });
 
   it('should project "beta" does not exist.', async () => {

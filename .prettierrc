@@ -39,9 +39,10 @@
       }
     },
     {
-      "files": "*.html",
+      "files": ["*.html", "*.hbs"],
       "options": {
-        "printWidth": 140
+        "printWidth": 140,
+        "singleQuote": false
       }
     },
     {

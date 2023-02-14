@@ -2,6 +2,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const paths = require('./webpack/paths');
 const HandlebarsRenderPlugin = require('./webpack/handlebars-render-plugin');
 const { getOutputHashFormat } = require('@nrwl/webpack/src/utils/hash-format');
+
+const htmlWebpackPluginOptions = paths.appHtml().reduce((options, html) => {
+  return [
+    ...options,
+    {
+      template: html.template,
+      chunks: html.chunks,
+      filename: html.filename,
+      inject: false,
+      minify: {
+        removeComments: true,
+      },
+    },
+  ];
+}, []);
+
 /**
  * 扩展打包配置
  * @param {WebpackConfig} webpackConfig
@@ -25,6 +41,12 @@ module.exports = (webpackConfig, { options, context }) => {
     }
   }
 
-  webpackConfig.plugins.push(new HandlebarsRenderPlugin());
+  webpackConfig.plugins.push(
+    new HandlebarsRenderPlugin({
+      htmlWebpackPluginOptions,
+      reload: webpackConfig.mode === 'development',
+      layout: 'views/layout.hbs',
+    })
+  );
   return webpackConfig;
 };

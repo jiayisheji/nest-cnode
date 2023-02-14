@@ -1,40 +1,61 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const paths = require('./paths');
 
+/** @typedef {import("webpack/lib/Compiler.js")} WebpackCompiler */
+/** @typedef {import("webpack/lib/Compilation.js")} WebpackCompilation */
+
 class HandlebarsRenderPlugin {
+  constructor(options) {
+    this.options = Object.assign(
+      {
+        htmlWebpackPluginOptions: [],
+        // 开发模式才有刷新
+        reload: false,
+      },
+      options
+    );
+
+    if (this.options.reload && !this.options.layout) {
+      throw new Error('using "reload" must be added "layout" path');
+    }
+  }
+
+  /**
+   * Apply the plugin
+   * @param {WebpackCompiler} compiler the compiler instance
+   * @returns {void}
+   */
   apply(compiler) {
-    const htmlWebpackPluginOptions = paths.appHtml().reduce((options, html) => {
-      return [
-        ...options,
-        new HtmlWebpackPlugin({
-          template: html.template,
-          chunks: html.chunks,
-          filename: html.filename,
-          inject: false,
-          minify: {
-            removeComments: true,
-          },
-        }),
-      ];
-    }, []);
+    const { htmlWebpackPluginOptions, reload, layout } = this.options;
 
     for (const plugin of htmlWebpackPluginOptions) {
-      plugin.apply(compiler);
+      new HtmlWebpackPlugin(plugin).apply(compiler);
     }
 
-    const reload = true;
-    const layout = 'views/layout.hbs';
-
-    compiler.hooks.compilation.tap('HandlebarsRenderPlugin', (compilation) => {
-      HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync('HandlebarsRenderPlugin', (data, cb) => {
-        if (reload && data.outputName === layout) {
-          data.html += '\r\n<script src="/reload/reload.js"></script>';
-        } else if (data.plugin.userOptions.chunks) {
-          data.html += appendResource(data.headTags.concat(data.bodyTags));
-        }
-        cb(null, data);
-      });
-    });
+    compiler.hooks.compilation.tap(
+      'HandlebarsRenderPlugin',
+      /**
+       * Hook into the webpack compilation
+       * @param {WebpackCompilation} compilation
+       */
+      (compilation) => {
+        HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
+          'HandlebarsRenderPlugin',
+          (data, cb) => {
+            if (reload) {
+              if (data.outputName === layout) {
+                data.html += '\r\n<script src="/reload/reload.js"></script>';
+              }
+            } else {
+              if (data.plugin.userOptions.chunks) {
+                data.html += appendResource(data.headTags.concat(data.bodyTags));
+              }
+            }
+            cb(null, data);
+          }
+        );
+      }
+    );
   }
 }
 

@@ -9,7 +9,7 @@ import {
   workspaceRoot,
   Workspaces,
 } from '@nrwl/devkit';
-import { getWebpackConfig } from '@nrwl/webpack/src/executors/webpack/lib/get-webpack-config';
+import { composePlugins, withNx, withWeb } from '@nrwl/webpack';
 import { normalizeOptions } from '@nrwl/webpack/src/executors/webpack/lib/normalize-options';
 import { resolveCustomWebpackConfig } from '@nrwl/webpack/src/utils/webpack/custom-webpack';
 import { readProjectsConfigurationFromProjectGraph } from 'nx/src/project-graph/project-graph';
@@ -147,14 +147,8 @@ async function getWebpackConfigForProject(project: ProjectConfiguration): Promis
     context.isVerbose
   );
   // 这是 webpackExecutor 处理 options
-  const options = normalizeOptions(combinedOptions, context.root, project.sourceRoot);
+  const options = normalizeOptions(combinedOptions, context.root, project.root, project.sourceRoot);
   // 下面都是 getWebpackConfigs 简化代码
-  const isScriptOptimizeOn =
-    typeof options.optimization === 'boolean'
-      ? options.optimization
-      : options.optimization && options.optimization.scripts
-      ? options.optimization.scripts
-      : false;
 
   let customWebpack = null;
 
@@ -167,7 +161,12 @@ async function getWebpackConfigForProject(project: ProjectConfiguration): Promis
     }
   }
 
-  return await Promise.resolve(getWebpackConfig(context, options, true, isScriptOptimizeOn)).then(async (config) => {
+  return composePlugins(
+    // always pass withNx() first
+    withNx(),
+    // add web functionality
+    withWeb()
+  )({}, { options, context }).then(async (config) => {
     if (customWebpack) {
       return await customWebpack(config, {
         options,

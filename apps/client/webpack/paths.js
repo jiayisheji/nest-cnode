@@ -43,7 +43,7 @@ function getHtml() {
       options.push({
         template: filepath.replace(sourceRoot, './src'),
         filename: `${viewsPath}/${folder}/${template}.hbs`,
-        chunks: filename.endsWith('.template.hbs') && [entry],
+        chunks: filename.endsWith('.template') && [entry],
         inject: false,
       });
     } else {

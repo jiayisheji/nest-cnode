@@ -62,7 +62,9 @@
       "executor": "@nrwl/js:node",
       "options": {
         "buildTarget": "client:build",
-        "buildTargetOptions": {}
+        "buildTargetOptions": {
+          "generatePackageJson": false
+        }
       },
       "configurations": {
         "production": {

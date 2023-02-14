@@ -16,7 +16,8 @@ module.exports = (webpackConfig, { options, context }) => {
     // fix package.json useless dependency
     if (options.generatePackageJson) {
       for (let i = 0; i < webpackConfig.plugins.length; i++) {
-        if (webpackConfig.plugins[i].constructor.name === 'GeneratePackageJsonWebpackPlugin') {
+        console.log(webpackConfig.plugins[i].constructor);
+        if (webpackConfig.plugins[i].constructor.name === 'GeneratePackageJsonPlugin') {
           webpackConfig.plugins[i] = new GeneratePackageJsonPlugin(
             {
               name: context.projectName,
