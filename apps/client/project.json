@@ -18,16 +18,21 @@
         "assets": [
           "apps/client/src/assets"
         ],
+        "isolatedConfig": true,
         "webpackConfig": "apps/client/webpack.config.js",
-        "generatePackageJson": true,
-        "stylePreprocessorOptions": {
-          "includePaths": [
-            "apps/client/src/views/shared/styles"
-          ]
-        },
         "viewOptions": {
           "webpackConfig": "apps/client/view-webpack.config.js",
-          "fileReplacements": [],
+          "fileReplacements": [
+            {
+              "replace": "@shared",
+              "with": "apps/client/src/views/shared"
+            }
+          ],
+          "stylePreprocessorOptions": {
+            "includePaths": [
+              "apps/client/src/views/shared/styles"
+            ]
+          },
           "assets": []
         }
       },
@@ -37,14 +42,9 @@
           "extractLicenses": false,
           "inspect": false,
           "main": "apps/client/src/main.prod.ts",
-          "fileReplacements": [
-            {
-              "replace": "apps/client/src/environments/environment.ts",
-              "with": "apps/client/src/environments/environment.prod.ts"
-            }
-          ],
           "viewOptions": {
             "outputHashing": "all",
+            "sourceMap": false,
             "webpackConfig": "apps/client/view-webpack.config.js",
             "fileReplacements": [
               {
@@ -52,19 +52,21 @@
                 "with": "apps/client/src/views/shared"
               }
             ],
-            "assets": [],
-            "sourceMap": false
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/client/src/views/shared/styles"
+              ]
+            },
+            "assets": []
           }
         }
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "@nest-cnode/mvc-plugin:serve",
       "options": {
         "buildTarget": "client:build",
-        "buildTargetOptions": {
-          "generatePackageJson": false
-        }
+        "buildTargetOptions": {}
       },
       "configurations": {
         "production": {
@@ -91,6 +93,12 @@
       "options": {
         "jestConfig": "apps/client/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     }
   },

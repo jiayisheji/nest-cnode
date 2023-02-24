@@ -1,11 +1,11 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import * as helpers from 'handlebars-helpers';
-import * as layouts from 'handlebars-layouts';
-import * as hbs from 'hbs';
 import { join } from 'path';
 import { AppModule } from './app/app.module';
+import helpers = require('handlebars-helpers');
+import layouts = require('handlebars-layouts');
+import hbs = require('hbs');
 
 export class Bootstrapping {
   // 通用前缀
@@ -29,7 +29,6 @@ export class Bootstrapping {
 
     // 启用 Nest Global(middleware、exception-filters、pipes、guards、interceptors)
     this.useNestGlobal(app);
-
     // 启用 Express Middleware
     if (useExpressMiddleware) {
       await useExpressMiddleware(app, this.useExpressMiddleware);

@@ -1,7 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { getOutputHashFormat } = require('@nrwl/webpack/src/utils/hash-format');
 const paths = require('./webpack/paths');
 const HandlebarsRenderPlugin = require('./webpack/handlebars-render-plugin');
-const { getOutputHashFormat } = require('@nrwl/webpack/src/utils/hash-format');
+const { composePlugins, withNx, withWeb } = require('@nrwl/webpack');
 
 const htmlWebpackPluginOptions = paths.appHtml().reduce((options, html) => {
   return [
@@ -18,35 +19,33 @@ const htmlWebpackPluginOptions = paths.appHtml().reduce((options, html) => {
   ];
 }, []);
 
-/**
- * 扩展打包配置
- * @param {WebpackConfig} webpackConfig
- * @param {object} nxContext
- * @returns {WebpackConfig}
- */
-module.exports = (webpackConfig, { options, context }) => {
-  webpackConfig.entry = paths.appEntry();
+// Nx plugins for webpack.
+module.exports = composePlugins(withNx({ skipTypeChecking: true }), withWeb(), (config, { options, context }) => {
+  // Update the webpack config as needed here.
+  // e.g. `config.plugins.push(new MyPlugin())`
+  config.entry = paths.appEntry();
   // Determine hashing format.
   const hashFormat = getOutputHashFormat(options.outputHashing);
-  webpackConfig.output.publicPath = '/';
-  webpackConfig.output.filename = 'assets/js/' + webpackConfig.output.filename;
-  webpackConfig.output.chunkFilename = 'assets/js/' + webpackConfig.output.chunkFilename;
-  webpackConfig.output.assetModuleFilename = `assets/images/[name]${hashFormat.file}.[ext]`;
+  config.output.publicPath = '/';
+  config.output.filename = 'assets/js/' + config.output.filename;
+  config.output.chunkFilename = 'assets/js/' + config.output.chunkFilename;
+  config.output.assetModuleFilename = `assets/images/[name]${hashFormat.file}.[ext]`;
 
-  for (let i = 0; i < webpackConfig.plugins.length; i++) {
-    if (webpackConfig.plugins[i].constructor.name === MiniCssExtractPlugin.name) {
-      const { filename, chunkFilename } = webpackConfig.plugins[i].options;
-      webpackConfig.plugins[i].options.filename = `assets/css/${filename}`;
-      webpackConfig.plugins[i].options.chunkFilename = `assets/css/${chunkFilename}`;
+  for (let i = 0; i < config.plugins.length; i++) {
+    if (config.plugins[i].constructor.name === MiniCssExtractPlugin.name) {
+      const { filename, chunkFilename } = config.plugins[i].options;
+      config.plugins[i].options.filename = `assets/css/${filename}`;
+      config.plugins[i].options.chunkFilename = `assets/css/${chunkFilename}`;
     }
   }
 
-  webpackConfig.plugins.push(
+  config.plugins.push(
     new HandlebarsRenderPlugin({
       htmlWebpackPluginOptions,
-      reload: webpackConfig.mode === 'development',
+      reload: config.mode === 'development',
       layout: 'views/layout.hbs',
     })
   );
-  return webpackConfig;
-};
+
+  return config;
+});
