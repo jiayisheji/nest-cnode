@@ -39,6 +39,7 @@
     "@nrwl/angular": "15.7.0",
     "@nrwl/nx-plugin": "15.7.0",
     "@swc/helpers": "~0.4.11",
+    "axios": "^1.0.0",
     "cookie-parser": "^1.4.6",
     "csurf": "^1.11.0",
     "express-session": "^1.17.2",
@@ -79,6 +80,7 @@
     "@nrwl/nest": "15.7.0",
     "@nrwl/node": "15.7.0",
     "@nrwl/nx-cloud": "15.0.3",
+    "@nrwl/webpack": "15.7.0",
     "@nrwl/workspace": "15.7.0",
     "@swc-node/register": "^1.4.2",
     "@swc/cli": "~0.1.55",
@@ -87,8 +89,8 @@
     "@types/csurf": "^1.11.2",
     "@types/express-session": "^1.17.4",
     "@types/jest": "28.1.1",
-    "@types/node": "16.11.7",
     "@types/lodash": "^4.14.188",
+    "@types/node": "18.7.1",
     "@types/passport-local": "^1.0.34",
     "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "5.36.1",
@@ -133,4 +135,3 @@
     }
   }
 }
-

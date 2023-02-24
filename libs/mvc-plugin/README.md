@@ -35,9 +35,35 @@ open `project.json` be modified as follows:
         }
       }
     }
+  },
+  "serve": {
+    "executor": "@nest-cnode/mvc-plugin:serve",
+    "options": {
+      "buildTarget": "client:build",
+      "buildTargetOptions": {},
+      "buildTargetViewOptions": {}
+    }
   }
 }
 ```
+
+### Custom Webpack Config
+
+```ts
+// Nodejs
+composePlugins(withNx(), (config, { options, context }) => {
+  return config;
+});
+// Web
+composePlugins(withNx({ skipTypeChecking: true }), withWeb(), (config, { options, context }) => {
+  return config;
+});
+```
+
+- skipTypeChecking: 跳过 `Typescript` 类型检查
+- config：[Configuration](https://github.com/webpack/webpack/blob/main/types.d.ts)
+- options：[NormalizedWebpackExecutorOptions](https://github.com/nrwl/nx/blob/master/packages/webpack/src/executors/webpack/schema.d.ts)
+- context: [ExecutorConfig](https://github.com/nrwl/nx/blob/master/packages/nx/src/config/misc-interfaces.ts)
 
 ## Building
 

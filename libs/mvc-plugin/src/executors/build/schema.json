@@ -340,7 +340,7 @@
     },
     "viewOptions": {
       "type": "object",
-      "description": "Additional options to pass into the build target.",
+      "description": "Additional view options to pass into the build target.",
       "default": {}
     }
   },

@@ -7,18 +7,16 @@ import {
   readNxJson,
   TargetConfiguration,
   workspaceRoot,
-  Workspaces,
 } from '@nrwl/devkit';
-import { composePlugins, withNx, withWeb } from '@nrwl/webpack';
 import { normalizeOptions } from '@nrwl/webpack/src/executors/webpack/lib/normalize-options';
-import { resolveCustomWebpackConfig } from '@nrwl/webpack/src/utils/webpack/custom-webpack';
 import { readProjectsConfigurationFromProjectGraph } from 'nx/src/project-graph/project-graph';
-import { combineOptionsForExecutor } from 'nx/src/utils/params';
-import * as reload from 'reload';
 import { Configuration, webpack } from 'webpack';
-import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import { getOptionsForExecutor } from './combined-options';
 import { formatWebpackMessages } from './format-webpack-messages';
+import { getWebpackConfig } from './get-webpack-config';
 import { mergeViewOptions } from './merge-view-options';
+import reload = require('reload');
+import webpackDevMiddleware = require('webpack-dev-middleware');
 
 /**
  * mvc webpackDevMiddleware
@@ -32,7 +30,7 @@ export async function mvcViewDevWebpack(app: NestExpressApplication, project: Pr
   const reloadServer: { reload: () => void } = await reload(express);
 
   // 通过 project.json 获取 webpack config
-  const webpackConfig = await getWebpackConfigForProject(project);
+  const webpackConfig = (await getWebpackConfigForProject(project)) as Configuration;
 
   // 使用webpack函数加载配置文件，生成一个webpack编译器
   const complier = webpack(webpackConfig);
@@ -53,6 +51,7 @@ export async function mvcViewDevWebpack(app: NestExpressApplication, project: Pr
         warnings: true,
         errors: true,
       });
+      console.info(stats.toString(webpackConfig.stats));
       const messages = formatWebpackMessages(rawMessages);
       if (!messages.errors.length && !messages.warnings.length) {
         console.log('Compiled successfully!');
@@ -71,8 +70,6 @@ export async function mvcViewDevWebpack(app: NestExpressApplication, project: Pr
       }
     });
   });
-
-  return reloadServer;
 }
 
 function createExecutorContext(
@@ -82,7 +79,8 @@ function createExecutorContext(
   targetName: string,
   configurationName: string
 ): ExecutorContext {
-  const projectConfigs = readProjectsConfigurationFromProjectGraph(graph);
+  const nxJsonConfiguration = readNxJson();
+  const projectsConfigurations = readProjectsConfigurationFromProjectGraph(graph);
   return {
     cwd: process.cwd(),
     projectGraph: graph,
@@ -92,9 +90,11 @@ function createExecutorContext(
     root: workspaceRoot,
     isVerbose: false,
     projectName,
+    projectsConfigurations,
+    nxJsonConfiguration,
     workspace: {
-      ...readNxJson(),
-      ...projectConfigs,
+      ...projectsConfigurations,
+      ...nxJsonConfiguration,
     },
   };
 }
@@ -104,77 +104,21 @@ function createExecutorContext(
  * @param project
  * @returns
  */
-async function getWebpackConfigForProject(project: ProjectConfiguration): Promise<Configuration> {
-  // 指明 build target
-  const target = 'build';
-  // 获取 build target config
-  const targetConfig = project.targets[target];
-  // 异常处理
-  if (!targetConfig) {
-    throw new Error(`Cannot find target '${target}' for project '${project}'`);
-  }
-
+async function getWebpackConfigForProject(project: ProjectConfiguration) {
   // 获取 ExecutorContext
-  const context = createExecutorContext(readCachedProjectGraph(), project.targets, project.name, target, undefined);
+  const context = createExecutorContext(readCachedProjectGraph(), project.targets, project.name, 'build', undefined);
 
-  // Workspaces 读取类
-  const ws = new Workspaces(context.root);
-  // 读取 executor 参数解析 模块和执行器
-  const [nodeModule, executor] = targetConfig.executor.split(':');
-  // 获取 executors/build/schema.json
-  const { schema } = ws.readExecutor(nodeModule, executor);
+  const { buildTarget, buildTargetViewOptions } = project.targets['serve'].options;
 
-  // 获取当前 configuration，这里读取不到 `defaultConfiguration` 值
-  const configuration = targetConfig.defaultConfiguration;
-
-  // 读取 build.options 配置
-  const { viewOptions, ..._options } = targetConfig.options;
-  // 跟 executors/build/executor.ts 配置一样
-  // viewOptions.generatePackageJson = false;
-  // viewOptions.target = 'web';
-  // viewOptions.compiler = 'babel';
-  // viewOptions.deleteOutputPath = false;
-  // viewOptions.fileReplacements = [];
-  targetConfig.options = mergeViewOptions(_options, viewOptions);
-  // 根据 schema 生成 options
-  const combinedOptions = combineOptionsForExecutor(
-    {},
-    configuration,
-    targetConfig,
-    schema,
-    context.projectName,
-    ws.relativeCwd(context.cwd),
-    context.isVerbose
-  );
+  const { viewOptions, ...combinedOptions } = getOptionsForExecutor({ buildTarget }, context);
+  const metadata = context.projectsConfigurations.projects[project.name];
   // 这是 webpackExecutor 处理 options
-  const options = normalizeOptions(combinedOptions, context.root, project.root, project.sourceRoot);
-  // 下面都是 getWebpackConfigs 简化代码
-
-  let customWebpack = null;
-
-  // 处理 webpackConfig 自定义配置
-  if (options.webpackConfig) {
-    customWebpack = resolveCustomWebpackConfig(options.webpackConfig, options.tsConfig);
-
-    if (typeof customWebpack.then === 'function') {
-      customWebpack = await customWebpack;
-    }
-  }
-
-  return composePlugins(
-    // always pass withNx() first
-    withNx(),
-    // add web functionality
-    withWeb()
-  )({}, { options, context }).then(async (config) => {
-    if (customWebpack) {
-      return await customWebpack(config, {
-        options,
-        context,
-        configuration: context.configurationName,
-      });
-    } else {
-      return config;
-    }
-  });
+  const options = normalizeOptions(
+    mergeViewOptions(combinedOptions, { ...viewOptions, ...buildTargetViewOptions }),
+    context.root,
+    metadata.root,
+    project.sourceRoot
+  );
+  // 跟 executors/build/executor.ts 配置一样
+  return getWebpackConfig(options, context, true);
 }
