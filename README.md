@@ -56,11 +56,11 @@ Describes which version of the main packages and main tools.
 | Nx | v15.x |
 | Angular | v14.x |
 | NestJs | v9.x |
-| NodeJs | v14.x |
+| NodeJs | v18.x |
 | Typescript | v4.x |
 | Mongoose | v6.x |
 | MongoDB | v5.x |
-| NPM | v6.x |
+| NPM | v8.x |
 | Docker | v20.x |
 | Docker Compose | v2.x |
 
@@ -101,7 +101,7 @@ Open our terminal and follow this instruction
 node --version
 
 # will return
-# v14.15.0
+# v18.7.0
 ```
 
 2. Check package manager is running, with yarn
@@ -110,7 +110,7 @@ node --version
 npm --version
 
 # will return
-# 6.14.8
+# 8.15.0
 ```
 
 3. Check MongoDB
