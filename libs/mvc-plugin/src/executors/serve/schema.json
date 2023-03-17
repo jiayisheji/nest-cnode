@@ -16,9 +16,9 @@
       "description": "Additional options to pass into the build target.",
       "default": {}
     },
-    "buildTargetViewOptions": {
+    "buildTargetBrowserOptions": {
       "type": "object",
-      "description": "Additional view options to pass into the build target.",
+      "description": "Additional browser options to pass into the build target.",
       "default": {}
     },
     "waitUntilTargets": {

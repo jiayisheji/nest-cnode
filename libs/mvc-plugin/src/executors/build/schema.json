@@ -6,10 +6,6 @@
   "description": "Builds web applications using webpack.",
   "type": "object",
   "properties": {
-    "crossOrigin": {
-      "type": "string",
-      "description": "The `crossorigin` attribute to use for generated javascript script tags.  One of 'none' | 'anonymous' | 'use-credentials'."
-    },
     "main": {
       "type": "string",
       "description": "The name of the main entry-point file.",
@@ -57,14 +53,6 @@
       "description": "Enable re-building when files change.",
       "default": false
     },
-    "baseHref": {
-      "type": "string",
-      "description": "Base url for the application being built."
-    },
-    "deployUrl": {
-      "type": "string",
-      "description": "URL where the application will be deployed."
-    },
     "vendorChunk": {
       "type": "boolean",
       "description": "Use a separate bundle containing only vendor libraries.",
@@ -105,28 +93,6 @@
         "$ref": "#/definitions/assetPattern"
       }
     },
-    "index": {
-      "type": "string",
-      "description": "HTML File which will be contain the application.",
-      "x-completion-type": "file",
-      "x-completion-glob": "**/*@(.html|.htm)"
-    },
-    "scripts": {
-      "type": "array",
-      "description": "External Scripts which will be included before the main application entry.",
-      "items": {
-        "$ref": "#/definitions/extraEntryPoint"
-      },
-      "default": []
-    },
-    "styles": {
-      "type": "array",
-      "description": "External Styles which will be included with the application",
-      "items": {
-        "$ref": "#/definitions/extraEntryPoint"
-      },
-      "default": []
-    },
     "budgets": {
       "description": "Budget thresholds to ensure parts of your application stay within boundaries which you set.",
       "type": "array",
@@ -150,21 +116,6 @@
         "media",
         "bundles"
       ]
-    },
-    "stylePreprocessorOptions": {
-      "description": "Options to pass to style preprocessors.",
-      "type": "object",
-      "properties": {
-        "includePaths": {
-          "description": "Paths to include. Paths will be resolved to project root.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": []
-        }
-      },
-      "additionalProperties": false
     },
     "optimization": {
       "description": "Enables optimization of the build output.",
@@ -248,19 +199,9 @@
       "description": "Dependencies to keep external to the bundle. (`all` (default), `none`, or an array of module names)",
       "default": "all"
     },
-    "extractCss": {
-      "type": "boolean",
-      "description": "Extract CSS into a `.css` file.",
-      "default": true
-    },
     "es2015Polyfills": {
       "description": "Conditional polyfills loaded in browsers which do not support `ES2015`.",
       "type": "string"
-    },
-    "subresourceIntegrity": {
-      "type": "boolean",
-      "description": "Enables the use of subresource integrity validation.",
-      "default": false
     },
     "polyfills": {
       "type": "string",
@@ -323,24 +264,49 @@
       "description": "Read buildable libraries from source instead of building them separately.",
       "default": true
     },
-    "generateIndexHtml": {
-      "type": "boolean",
-      "description": "Generates `index.html` file to the output path. This can be turned off if using a webpack plugin to generate HTML such as `html-webpack-plugin`.",
-      "default": false
-    },
-    "postcssConfig": {
-      "type": "string",
-      "description": "Set a path to PostCSS config that applies to the app and all libs. Defaults to `undefined`, which auto-detects postcss.config.js files in each `app`/`lib` directory."
-    },
     "webpackConfig": {
       "type": "string",
       "description": "Path to a function which takes a webpack config, some context and returns the resulting webpack config. See https://nx.dev/guides/customize-webpack",
       "x-completion-type": "file",
       "x-completion-glob": "webpack?(*)@(.js|.ts)"
     },
-    "viewOptions": {
+    "extraEntryPoint": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "input": {
+              "type": "string",
+              "description": "The file to include.",
+              "x-completion-type": "file",
+              "x-completion-glob": "**/*@(.css|.scss|.less|.sass|.styl|.stylus)"
+            },
+            "bundleName": {
+              "type": "string",
+              "description": "The bundle name for this extra entry point."
+            },
+            "inject": {
+              "type": "boolean",
+              "description": "If the bundle will be referenced in the HTML file.",
+              "default": true
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "input"
+          ]
+        },
+        {
+          "type": "string",
+          "description": "The file to include.",
+          "x-completion-type": "file",
+          "x-completion-glob": "**/*@(.css|.scss|.less|.sass|.styl|.stylus)"
+        }
+      ]
+    },
+    "browserOptions": {
       "type": "object",
-      "description": "Additional view options to pass into the build target.",
+      "description": "Additional browser options to pass into the build target.",
       "default": {}
     }
   },
