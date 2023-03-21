@@ -922,4 +922,34 @@ if (options.partials && !tree.exists(partials)) {
 
 在本文中，我们通过实现一个 `mvc` 的 `views` 插件介绍了 `Nx` 的插件化思想。为了说明它，我们一步一步实现了它，并了解了它是如何在幕后工作的。然后，我们学习了如何使用内置工具方法实现自己的插件这个过程。正如 `Nx` 的官网介绍：`Nx makes scaling easy.`
 
+## 挖坑
+
+1. 多个 `runExecutor` 不能并行执行
+
+前面有个地方说了，如果有多个 `runExecutor` 不能并行执行，最近在翻看源码时候发现 [ssr-dev-server](https://github.com/nrwl/nx/blob/master/packages/webpack/src/executors/ssr-dev-server/ssr-dev-server.impl.ts) 的执行器。它主要是做服务端渲染，里面需要有 `browserTarget` 和 `serverTarget` 需要传递 2 个独立 `target` 配置。它里面用的一个方法 [combineAsyncIterables](https://github.com/nrwl/nx/blob/master/packages/devkit/src/utils/async-iterable/combine-async-iterables.ts)，相当于就是并行 `AsyncGenerator`。
+
+2. 在 express 使用 webpack 提供中间件
+
+这个如果在单页应用里面没什么问题，在服务端渲染里这个还是有点问题，它的过程：
+
+- node 启动服务端
+- 运行 webpack 中间件打包
+- 运行 nestjs
+
+每次 nestjs 文件保存，重新执行过程，views 模板项目相关的编译不会触发整个过程。
+
+这样有了一个问题，会等很久。这不是不能接受的。
+
+你这时候你可能要说用 `ssr-dev-server`，确实我也想到了。理想很丰满，现实很骨感，整个 `Executor` 没有多大问题，这个执行里面有一个 `waitUntilServerIsListening` 方法，这个方法是 `nodejs` 的 `net`，跨进程通讯用的，我在使用这个 `Executor` 时候，只要一保存就会抛出错误，连接失败。
+
+我就索性放弃之前中间件方案，改用 `ssr-dev-server` 实现，直接写了一个 `serveExecutor`，`views` 模板里面使用 `webpackExecutor`，`nestjs` 使用 `nodeExecutor`，代码基本一样，去除了 `waitUntilServerIsListening`。
+
+现在保存 `nestjs` 文件保存，并不会重新执行 `views` 模板。
+
+保存 `views` 模板会执行整个过程。
+
+因为现在是并行执行，所有非常快。
+
+唯一瑕疵：就是 `views` 出错会就挂了，需要重启整个过程。还有就是有概率会出现 `nodeExecutor` 和 `webpackExecutor` 配置串问题，重启一下就好了，具体原因不明，理论是不会出现。
+
 > 接下来，我们会用这种方式来构建更多的扩展，帮助我们提升工作效率。
