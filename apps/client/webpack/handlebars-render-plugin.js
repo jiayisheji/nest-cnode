@@ -27,7 +27,6 @@ class HandlebarsRenderPlugin {
    */
   apply(compiler) {
     const { htmlWebpackPluginOptions, reload, layout } = this.options;
-
     for (const plugin of htmlWebpackPluginOptions) {
       new HtmlWebpackPlugin(plugin).apply(compiler);
     }
@@ -42,14 +41,10 @@ class HandlebarsRenderPlugin {
         HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
           'HandlebarsRenderPlugin',
           (data, cb) => {
-            if (reload) {
-              if (data.outputName === layout) {
-                data.html += '\r\n<script src="/reload/reload.js"></script>';
-              }
-            } else {
-              if (data.plugin.userOptions.chunks) {
-                data.html += appendResource(data.headTags.concat(data.bodyTags));
-              }
+            if (reload && data.outputName === layout) {
+              data.html += '\r\n<script src="/reload/reload.js"></script>';
+            } else if (data.plugin.userOptions.chunks) {
+              data.html = appendResource(data.html, data.headTags.concat(data.bodyTags));
             }
             cb(null, data);
           }
@@ -59,43 +54,51 @@ class HandlebarsRenderPlugin {
   }
 }
 
-function appendResource(tags) {
-  const scripts = [],
-    styles = [];
+/**
+ *
+ * @param {string} html
+ * @param {{attributes: {href: string; rel: string; type: string; defer: boolean; src: string}; tagName: string;}[]} tags
+ * @returns
+ */
+function appendResource(html, tags) {
+  let scripts = '{{#content "script" mode="append"}}\r\n',
+    styles = '{{#content "style" mode="append"}}\r\n',
+    resources = '\r\n';
 
-  for (const tag of tags) {
-    switch (tag.tagName) {
+  for (const { tagName, attributes } of tags) {
+    switch (tagName) {
       case 'script': {
-        scripts.push(tag.attributes);
+        // 这是一个无用的 js
+        if (attributes.src.endsWith('styles.js')) {
+          continue;
+        } else {
+          scripts += `<script type="${attributes.type ?? 'text/javascript'}" ${attributes.defer ? 'defer' : ''} src="${
+            attributes.src
+          }"></script>\r\n`;
+        }
         break;
       }
       case 'link': {
-        styles.push(tag.attributes);
+        styles += `<link href="${attributes.href}" rel="${attributes.rel}">\r\n`;
         break;
       }
     }
   }
 
-  let resources = '\r\n';
-
-  resources += '{{#content "style" mode="append"}}\r\n';
-
-  styles.forEach((item) => {
-    resources += `<link href="${item.href}" rel="${item.rel}">\r\n`;
-  });
-
-  resources += '{{/content}}\r\n';
-  resources += '{{#content "script" mode="append"}}\r\n';
-
-  scripts.forEach((item) => {
-    resources += `<script type="${item.type ?? 'text/javascript'}" ${item.defer ? 'defer' : ''} src="${
-      item.src
-    }"></script>\r\n`;
-  });
-
-  resources += '{{/content}}\r\n';
-
-  return resources;
+  resources = '\r\n' + styles + '{{/content}}\r\n' + scripts + '{{/content}}\r\n';
+  /***
+   * 可能写法 page 可以忽略 {{#extend "layout"}}{{/extend}}
+   * {{#extend "layout"}}
+   *    {{#content "body"}}
+   *      // code
+   *    {{/content}}
+   * {{/extend}}
+   */
+  const beginIndex = html.lastIndexOf('{{#extend "layout"}}');
+  const endIndex = html.lastIndexOf('{{/extend}}');
+  return beginIndex !== -1 && endIndex !== -1
+    ? html.substring(0, endIndex) + resources + '{{/extend}}\r\n'
+    : html + resources;
 }
 
 module.exports = HandlebarsRenderPlugin;

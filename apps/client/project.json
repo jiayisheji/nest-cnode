@@ -15,12 +15,11 @@
         "outputPath": "dist/apps/client",
         "main": "apps/client/src/main.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
-        "assets": [
-          "apps/client/src/assets"
-        ],
+        "assets": [],
+        "runtimeChunk": false,
         "isolatedConfig": true,
         "webpackConfig": "apps/client/webpack.config.js",
-        "viewOptions": {
+        "browserOptions": {
           "webpackConfig": "apps/client/view-webpack.config.js",
           "fileReplacements": [
             {
@@ -28,12 +27,9 @@
               "with": "apps/client/src/views/shared"
             }
           ],
-          "stylePreprocessorOptions": {
-            "includePaths": [
-              "apps/client/src/views/shared/styles"
-            ]
-          },
-          "assets": []
+          "assets": [
+            "apps/client/src/assets"
+          ]
         }
       },
       "configurations": {
@@ -42,7 +38,8 @@
           "extractLicenses": false,
           "inspect": false,
           "main": "apps/client/src/main.prod.ts",
-          "viewOptions": {
+          "extractCss": true,
+          "browserOptions": {
             "outputHashing": "all",
             "sourceMap": false,
             "webpackConfig": "apps/client/view-webpack.config.js",
@@ -52,12 +49,9 @@
                 "with": "apps/client/src/views/shared"
               }
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "apps/client/src/views/shared/styles"
-              ]
-            },
-            "assets": []
+            "assets": [
+              "apps/client/src/assets"
+            ]
           }
         }
       }
