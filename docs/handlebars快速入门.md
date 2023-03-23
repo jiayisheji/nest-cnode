@@ -1,8 +1,8 @@
 # Handlebars 快速入门
 
-hbs 是 Express 提供的默认视图引擎，是对 Handlebars 的封装。具体用法参考下面的项目地址，这里额外说明使用 Handlebars 模板引擎及其开发配套的一些插件用法.
+`hbs` 是 `Express` 提供的默认视图引擎，是对 `Handlebars` 的封装。具体用法参考下面的项目地址，这里额外说明使用 `Handlebars` 模板引擎及其开发配套的一些插件用法.
 
-Handlebars 使用环境: Node + Express + hbs 后端渲染模式
+`Handlebars` 使用环境: `Node` + `Express` + `hbs` 后端渲染模式
 
 - **主插件**
 
@@ -17,20 +17,20 @@ Handlebars 使用环境: Node + Express + hbs 后端渲染模式
 
 ## Handlebars
 
-Handlebars 是一个 Javascript 模板引擎，能让你轻松高效的编写语义化模板，它是 Mustache 模板引擎的一个扩展，Handlebars 和 Mustache 都是弱逻辑的模板引擎，能将 Web 前端的视图和代码分离，降低两者之间耦合.
+`Handlebars` 是一个 `Javascript` 模板引擎，能让你轻松高效的编写语义化模板，它是 `Mustache` 模板引擎的一个扩展，`Handlebars` 和 `Mustache` 都是弱逻辑的模板引擎，能将 Web 前端的视图和代码分离，降低两者之间耦合.
 
 Handlebars 以声明式的书写方式定义模板逻辑，一切都是表达式，编写简单易于拓展，可前后端共用。
 
-学习 Handlebars 主要是理解:
+学习 `Handlebars` 主要是理解:
 
 - 模板函数: Markup 字符串 = 模板函数 + 数据
 - Helper: 逻辑处理/数据过滤/内容转移等，**使用前必须注册**
 - Partials: 子模板，**使用前必须注册**
-- `{{}}`和`{{{}}}`的区别
-- inline helper 和 block helper 的不同写法
+- `{{}}` 和 `{{{}}}`的区别
+- `inline helper` 和 `block helper` 的不同写法
 - 最终生成的是 Markup HTML 片段字符串
-- Helper 定义有先后之分，模板规则类最后定义
-- 理解模板中的 this 和路径
+- `Helper` 定义有先后之分，模板规则类最后定义
+- 理解模板中的 `this` 和 `.` 路径
 
 ## hbs
 
@@ -42,7 +42,7 @@ Express.js view engine for handlebars.js
 
 #### 1. registerPartials
 
-`registerPartial`可输入路径注册，对应的方法: `hbs.registerPartials`，会比原始方法更便捷。
+`registerPartial` 可输入路径注册，对应的方法: `hbs.registerPartials`，会比原始方法更便捷。
 
 #### 2. localsAsTemplateData
 
@@ -73,9 +73,9 @@ hbs.handlebars === require('handlebars');
 
 ### 问题点
 
-#### 1. 如何根据页面插入对应的`style`和`script`
+#### 1. 如何根据页面插入对应的 `style` 和 `script`
 
-可以使用下面讲到的`handlebars-layouts`处理这个需求，主要是使用 Helper 的特性.
+可以使用下面讲到的 `handlebars-layouts` 处理这个需求，主要是使用 Helper 的特性.
 
 #### 2. 如何更换 layout.hbs 的路径和名称
 
@@ -112,18 +112,22 @@ Extend Helper 是继承的意思，与 ES6 的 Class Extend 类似，将继承�
 例如:
 
 ```html
-{{#extend "layout"}} {{#content "head" mode="append"}}
-<link rel="stylesheet" href="assets/css/home.css" />
-{{/content}} {{#content "body"}}
-<h2>Welcome Home</h2>
-<ul>
-  {{#items}}
-  <li>{{.}}</li>
-  {{/items}}
-</ul>
-{{/content}} {{#content "foot" mode="prepend"}}
-<script src="assets/js/analytics.js"></script>
-{{/content}} {{/extend}}
+{{#extend "layout"}} 
+  {{#content "head" mode="append"}}
+  <link rel="stylesheet" href="assets/css/home.css" />
+  {{/content}} 
+  {{#content "body"}}
+  <h2>Welcome Home</h2>
+  <ul>
+    {{#items}}
+    <li>{{.}}</li>
+    {{/items}}
+  </ul>
+  {{/content}} 
+  {{#content "foot" mode="prepend"}}
+  <script src="assets/js/analytics.js"></script>
+  {{/content}} 
+{{/extend}}
 ```
 
 #### 2. embed
@@ -137,11 +141,24 @@ Embed Helper 是嵌入的意思，将 Embed 模板嵌入当前的子模板中，
 例如:
 
 ```html
-{{#extend "layout"}} {{#content "body"}} {{#embed "gallery"}} {{#content "body"}}
-<img src="1.png" alt="" />
-<img src="2.png" alt="" />
-{{/content}} {{/embed}} {{#embed "modal" foo="bar" name=user.fullName}} {{#content "title" mode="prepend"}}Image 1 -
-{{/content}} {{#content "body"}}<img src="1.png" alt="" />{{/content}} {{/embed}} {{/content}} {{/extend}}
+{{#extend "layout"}} 
+  {{#content "body"}} 
+      {{#embed "gallery"}} 
+          {{#content "body"}}
+          <img src="1.png" alt="" />
+          <img src="2.png" alt="" />
+          {{/content}} 
+        {{/embed}} 
+      {{#embed "modal" foo="bar" name=user.fullName}} 
+      {{#content "title" mode="prepend"}}
+      Image 1 -
+      {{/content}} 
+      {{#content "body"}}
+      <img src="1.png" alt="" />
+      {{/content}} 
+    {{/embed}} 
+  {{/content}} 
+{{/extend}}
 ```
 
 #### 3. block
@@ -154,15 +171,43 @@ Block Helper 定义一个插入点，插入的内容由 Content Helper 定义。
 
 例如:
 
+Layout:
+
 ```html
-{{#block "header"}}
-<h1>Hello World</h1>
-{{/block}} {{#block "main"}}
-<p>Main</p>
-{{/block}} {{#block "footer"}}
-<p>MIT License</p>
-{{/block}}
+<html>
+    ...
+    <body>
+        {{#block "header"}}
+            <h1>Hello World</h1>
+        {{/block}}
+ 
+        {{#block "main"}}
+            <p>Lorem ipsum.</p>
+        {{/block}}
+ 
+        {{#block "footer"}}
+            <p>&copy; 1999</p>
+        {{/block}}
+    </body>
+</html>
 ```
+
+有条件的 block
+
+```html
+<div class="grid">
+    <div class="grid-col {{#if (content 'right')}}grid-col_2{{else}}grid-col_full{{/if}}">
+        {{{block "left"}}}
+    </div>
+    {{#if (content "right")}}
+        <div class="grid-col grid-col_10">
+            {{{block "right"}}}
+        </div>
+    {{/if}}
+</div>
+```
+
+只有当存在 `content "right"` 才会显示 `right` 部分和 `.grid-col_2`，否则只显示 `.grid-col_full`。
 
 #### 4. content
 
@@ -170,15 +215,25 @@ Content Helper 定义一个插入内容，`mode`可以决定插入的方式，�
 
 例如:
 
+Page：
+
 ```html
-{{#extend "layout"}} {{#content "header"}}
-<h1>Hello World</h1>
-{{/content}} {{#content "main" mode="append"}}
-<p>Main Append</p>
-{{/content}} {{#content "footer" mode="prepend"}}
-<p>MIT License</p>
-{{/content}} {{/extend}}
+{{#extend "layout"}} 
+  {{#content "header"}}
+  <h1>Hello World</h1>
+  {{/content}} 
+  {{#content "main" mode="append"}}
+  <p>Main Append</p>
+  {{/content}} 
+  {{#content "footer" mode="prepend"}}
+  <p>MIT License</p>
+  {{/content}}
+{{/extend}}
 ```
+
+- prepend：可以写多个，插入顺序，后进先出。
+- append：可以写多个，插入顺序，后进后出。
+- replace：只能写一个，会覆盖所有同名的 `content`。
 
 ### 安装
 
@@ -208,9 +263,9 @@ hbs.registerHelper(layouts(hbs.handlebars));
 
 `registerPartials` 注册是一次性行为，除非有 watch 文件再次执行注册，或者重启 node 服务，否则 node 中保存的都是第一次的编译结果，关于 watch 的工具会在`hbs-utils`中讲到.
 
-#### 4.`extend`和`embed`书写的 partials 在页面没正常初始化
+#### 4.extend 和 embed 书写的 partials 在页面没正常初始化
 
-可能是未正常初始化的 Partials 使用了别的模块注册的 Helper，且这个 Helper 没有在`handlebars-layouts`之前先注册，更改下顺序吧，比如`handlebars-helpers`和`handlebars-layouts`的顺序:
+可能是未正常初始化的 `Partials` 使用了别的模块注册的 `Helper`，且这个 Helper 没有在`handlebars-layouts`之前先注册，更改下顺序吧，比如 `handlebars-helpers` 和 `handlebars-layouts` 的顺序:
 
 1. handlebars-helpers: 提供基础的 Helper
 2. handlebars-layouts: 提供布局的 Helper
@@ -248,7 +303,7 @@ console.log(Object.keys(hbs.handlebars.helpers));
 
 ## hbs-utils
 
-这个工具是在开发时为 hbs 提供`Partials`注册及 watch 的功能。
+这个工具是在开发时为 `hbs` 提供 `Partials` 注册及 `watch` 的功能。
 
 ### 安装
 
@@ -268,13 +323,13 @@ hbsutils.registerWatchedPartials(config.viewsPath，{
 
 ### 问题点
 
-#### 1. 和 hbs 提供的`registerPartials`之间的区别
+#### 1. 和 hbs 提供的 `registerPartials` 之间的区别
 
 主要是提供了 `precompile` 的功能，默认是关闭的的。另外，提供 `name` 属性来修改 `Partials` 的注册名称.
 
-#### 2. `registerWatchedPartials` 之前需要 `registerPartials` 吗
+#### 2. registerWatchedPartials 之前需要 registerPartials 吗
 
-不需要，因为`registerWatchedPartials`会自己按照给定的目录先注册`Partials`，之后再 watch。
+不需要，因为 `registerWatchedPartials` 会自己按照给定的目录先注册 `Partials`，之后再 `watch`。
 
 #### 3. 如何开启开发模式
 
