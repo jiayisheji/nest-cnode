@@ -53,16 +53,16 @@ Describes which version of the main packages and main tools.
 
 | Name | Version |
 | --- | --- |
-| Nx | v15.x |
-| Angular | v14.x |
-| NestJs | v9.x |
 | NodeJs | v18.x |
-| Typescript | v4.x |
-| Mongoose | v6.x |
-| MongoDB | v5.x |
-| NPM | v8.x |
+| NPM | v9.x |
 | Docker | v20.x |
 | Docker Compose | v2.x |
+| MongoDB | v5.x |
+| Nx | v16.x |
+| Angular | v16.x |
+| NestJs | v9.x |
+| Typescript | v5.x |
+| Mongoose | v6.x |
 
 ## Prerequisites
 
@@ -101,7 +101,7 @@ Open our terminal and follow this instruction
 node --version
 
 # will return
-# v18.7.0
+# v18.15.0
 ```
 
 2. Check package manager is running, with yarn
@@ -110,7 +110,7 @@ node --version
 npm --version
 
 # will return
-# 8.15.0
+# 9.5.0
 ```
 
 3. Check MongoDB
@@ -219,6 +219,28 @@ docker-compose --version
 
 ```sh
 docker-compose up -d
+```
+
+## Migrate
+
+### Usage
+
+```sh
+nx migrate [packageAndVersion]
+
+# nx migrate latest => Update all Nx plugins to "latest".
+# nx migrate 16.1.0 => Update all Nx plugins to "16.1.0". 
+# nx migrate @nx/workspace@9.0.0 --from="@nx/workspace@8.0.0,@nx/node@8.0.0"
+# nx migrate @nx/workspace@9.0.0 --to="@nx/react@9.0.1,@nx/angular@9.0.1"
+# nx migrate another-package@12.0.0
+# nx migrate latest --interactive
+# nx migrate latest --from=nx@14.5.0 --exclude-applied-migrations
+```
+
+### Running
+
+```bash
+nx migrate --run-migrations
 ```
 
 ## Reference

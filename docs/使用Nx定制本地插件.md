@@ -192,7 +192,7 @@ npx nx list
 以前本地只支持 `executors` 和 `generators`。自动生成在 `tools` 目录里。
 
 ```bash
-npx nx generate @nrwl/workspace:workspace-generator generatorName --no-interactive
+npx nx generate @nx/workspace:workspace-generator generatorName --no-interactive
 ```
 
 可用使用 `Nx` 命令生成 `generators`，`executors` 没有，以前文档有专门一篇介绍 `custom executors`。改版以后就没有，现在可用使用 [Local Generators](https://nx.dev/recipes/generators/local-generators)。
@@ -200,13 +200,13 @@ npx nx generate @nrwl/workspace:workspace-generator generatorName --no-interacti
 安装插件包：
 
 ```bash
-npm install @nrwl/nx-plugin@latest
+npm install @nx/plugin@latest
 ```
 
 创建插件
 
 ```bash
-npx nx generate @nrwl/nx-plugin:plugin mvc-plugin
+npx nx generate @nx/plugin:plugin mvc-plugin
 ```
 
 会帮我们自动生成：
@@ -233,7 +233,7 @@ npx nx generate @nrwl/nx-plugin:plugin mvc-plugin
 
 ```json
 "serve": {
-  "executor": "@nrwl/js:node",
+  "executor": "@nx/js:node",
   "options": {
     "buildTarget": "client:build",
     "buildTargetOptions": {} // 定义要传递的参数，会覆盖 build.options
@@ -241,7 +241,7 @@ npx nx generate @nrwl/nx-plugin:plugin mvc-plugin
 }
 ```
 
-在 `"@nrwl/js:node"` 内部就是使用 `runExecutor` 执行 `build` 的 `@nrwl/webpack:webpack`。换句简单理解我们也可以借助这种实现方式实现我们想要功能。
+在 `"@nx/js:node"` 内部就是使用 `runExecutor` 执行 `build` 的 `@nx/webpack:webpack`。换句简单理解我们也可以借助这种实现方式实现我们想要功能。
 
 #### 借助 runExecutor 实现
 
@@ -271,7 +271,7 @@ npx nx generate @nrwl/nx-plugin:plugin mvc-plugin
 ```json
 {
   "serve": {
-    "executor": "@nrwl/js:node",
+    "executor": "@nx/js:node",
     "options": {
       "buildTarget": "client:base-build"
     },
@@ -287,7 +287,7 @@ npx nx generate @nrwl/nx-plugin:plugin mvc-plugin
 4. 书写自己的 `executor` 执行器 `executors/build/executor.ts`
 
 ```ts
-import { ExecutorContext, runExecutor as NxRunExecutor, parseTargetString } from '@nrwl/devkit';
+import { ExecutorContext, runExecutor as NxRunExecutor, parseTargetString } from '@nx/devkit';
 /**
  * 执行器主函数
  * @param options 配置参数 target.options，如果配置有 configurations，会根据 configuration 自动合并
@@ -393,8 +393,8 @@ function getHtml() {
 主要借助 `webpackExecutor` 实现，先上代码：
 
 ```ts
-import { ExecutorContext } from '@nrwl/devkit';
-import { webpackExecutor } from '@nrwl/webpack';
+import { ExecutorContext } from '@nx/devkit';
+import { webpackExecutor } from '@nx/webpack';
 import { BuildExecutorSchema } from './schema';
 
 export default async function* runExecutor(options: BuildExecutorSchema, context: ExecutorContext) {
@@ -440,7 +440,7 @@ export default async function* runExecutor(options: BuildExecutorSchema, context
 
 > 这个属性必须要添加，不然在 `schema` 验证会出现错误。这个属性作用是什么，它主要是为了覆盖 `options` 配置。
 
-我翻看了 `@nrwl/webpack` 的源码，这个包处理 `webpack.target` 是 `node` 和 `web`（会生成 2 套 js（es5 和 es6））。
+我翻看了 `@nx/webpack` 的源码，这个包处理 `webpack.target` 是 `node` 和 `web`（会生成 2 套 js（es5 和 es6））。
 
 它里面有一套完整的 `webpack` 配置生成方式，还可以合并自定义配置。所有我思来想去，就像借助这个特性，只需要 `viewOptions` 覆盖 `options`，只定义一个 `view-webpack.config.js`。可用去覆盖我想要的配置，比如 `entry` 和 `HtmlWebpackPlugin`。
 
@@ -448,7 +448,7 @@ export default async function* runExecutor(options: BuildExecutorSchema, context
 
 `serve` 默认就是执行的 `build`，只是通过 `buildTargetOptions` 覆盖 `build` 的 `options`。如果有多个 `webpackExecutor` 执行会导致 `nestjs` 不会启动。还有更致命问题没有办法让 `nestjs` 和 `webpack` 交互。
 
-实际写一个 `executors` 很容易，`@nrwl/devkit` 里提供各种好用的工具，还可以借助已有内置 `executors` 实现想要功能。如果不能实现也可以参考代码，修改成自己的想要的功能。
+实际写一个 `executors` 很容易，`@nx/devkit` 里提供各种好用的工具，还可以借助已有内置 `executors` 实现想要功能。如果不能实现也可以参考代码，修改成自己的想要的功能。
 
 接下来就是实现 `nestjs` 和 `webpack` 交互中间件 `mvcViewDevWebpack`。
 
@@ -533,7 +533,7 @@ export function createExecutorContext(
 这里除了 `graph` 参数其他都可用在 `project.json` 得到，在搜索 `createExecutorContext` 使用后，在一堆提供测试方法找到：
 
 ```ts
-import { readCachedProjectGraph } from '@nrwl/devkit';
+import { readCachedProjectGraph } from '@nx/devkit';
 
 graph = readCachedProjectGraph();
 ```
@@ -545,12 +545,12 @@ graph = readCachedProjectGraph();
 只有靠 `sourcegraph` 搜索，一开始不知道搜索什么，突然想到 [runExecutor](https://github.com/nrwl/nx/blob/master/packages/nx/src/command-line/run.ts#L250) 是怎么实现的了，它主要依赖 `runExecutorInternal()` 实现。
 
 ```ts
-import { createExecutorContext } from '@nrwl/cypress/plugins/cypress-preset';
-import { ExecutorContext, ProjectConfiguration, readCachedProjectGraph, Workspaces } from '@nrwl/devkit';
-import { getWebpackConfig } from '@nrwl/webpack/src/executors/webpack/lib/get-webpack-config';
+import { createExecutorContext } from '@nx/cypress/plugins/cypress-preset';
+import { ExecutorContext, ProjectConfiguration, readCachedProjectGraph, Workspaces } from '@nx/devkit';
+import { getWebpackConfig } from '@nx/webpack/src/executors/webpack/lib/get-webpack-config';
 import { combineOptionsForExecutor } from 'nx/src/utils/params';
-import { normalizeOptions } from '@nrwl/webpack/src/executors/webpack/lib/normalize-options';
-import { resolveCustomWebpackConfig } from '@nrwl/webpack/src/utils/webpack/custom-webpack';
+import { normalizeOptions } from '@nx/webpack/src/executors/webpack/lib/normalize-options';
+import { resolveCustomWebpackConfig } from '@nx/webpack/src/utils/webpack/custom-webpack';
 
 /**
  * 根据 project.json 获取 webpack config
@@ -643,7 +643,7 @@ async function getWebpackConfigForProject(project: ProjectConfiguration): Promis
 ```json
 {
   "base-build": {
-    "executor": "@nrwl/webpack:webpack",
+    "executor": "@nx/webpack:webpack",
     "outputs": ["{options.outputPath}"],
     "options": {
       "target": "node",
@@ -683,7 +683,7 @@ async function getWebpackConfigForProject(project: ProjectConfiguration): Promis
     }
   },
   "serve": {
-    "executor": "@nrwl/js:node",
+    "executor": "@nx/js:node",
     "options": {
       "buildTarget": "client:base-build",
       "buildTargetOptions": {}
@@ -741,7 +741,7 @@ async function getWebpackConfigForProject(project: ProjectConfiguration): Promis
     }
   },
   "serve": {
-    "executor": "@nrwl/js:node",
+    "executor": "@nx/js:node",
     "options": {
       "buildTarget": "client:build",
       "buildTargetOptions": {}
@@ -913,7 +913,7 @@ if (options.partials && !tree.exists(partials)) {
 单元测试使用 [jest](https://jestjs.io/)，和大多数单元测试写法一样。这里说几个要点：
 
 1. `appTree = createTreeWithEmptyWorkspace()` 创建内存虚拟文件系统树，需要用到 `Tree` 地方都可以使用它。
-2. 默认是没有项目的，需要自己创建项目，并且没有测试方法提供，我直接使用 `import { applicationGenerator } from '@nrwl/nest';`，只需要传递 `{name: 'test'}` 即可
+2. 默认是没有项目的，需要自己创建项目，并且没有测试方法提供，我直接使用 `import { applicationGenerator } from '@nx/nest';`，只需要传递 `{name: 'test'}` 即可
 3. 使用 `await generator(appTree, options);` 创建内存虚拟文件，然后通过 `Tree` 方法 `exists` 检查是否存在，`read` 读取文件，匹配是否包含预期内容
 
 有了虚拟文件系统树，测试方便多了。
